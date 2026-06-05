@@ -30,13 +30,19 @@
   </div>
   <div class="list" id="list"></div>
 </div>
-<div class="tools"><button class="secondary" id="editEventBtn">イベント設定</button><button id="editArtistsBtn">演者編集</button></div>
+<div class="tools"><button class="secondary" id="editEventBtn">イベント設定</button><button class="secondary" id="flyerBtn">フライヤー読込</button><button id="editArtistsBtn">演者編集</button></div>
 
 <dialog id="eventDialog"><h3>イベント設定</h3><div class="formGrid"><label>イベント名<input id="titleInput" /></label><label>イベントID<input id="eventInput" /></label><div class="small">イベントIDを変えると別イベントになります。例：soul-jamaica-2026</div></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveEventBtn">保存</button></div></dialog>
 <dialog id="artistsDialog"><h3>演者編集</h3><div class="small">1行に「時間,演者名,人数,メモ」。時間なしでもOK。例：20:30,OSAGARI,2,もう1人後入り</div><textarea id="artistsText"></textarea><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveArtistsBtn">保存</button></div><div class="error" id="artistsError"></div></dialog>
 <dialog id="settingsDialog"><h3>設定</h3><div class="small">イベントID：<span id="settingsEventId"></span></div><div class="settingsList"><button id="resetArrivalsBtn">到着状況だけリセット</button><button id="duplicateEventBtn">イベントを複製</button><button class="dangerAction" id="deleteEventBtn">イベント全削除</button></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button></div></dialog>
 <dialog id="duplicateDialog"><h3>イベントを複製</h3><div class="formGrid"><label>新しいイベントID<input id="duplicateIdInput" placeholder="例：soul-jamaica-vol2" /></label><label>新しいイベント名<input id="duplicateTitleInput" placeholder="例：SOUL JAMAICA Vol.2" /></label><div class="small">演者・人数・タイムテーブルをコピーして、到着状況は0に戻します。</div></div><div class="dialogBtns"><button class="cancel" data-close>キャンセル</button><button id="saveDuplicateBtn">複製する</button></div><div class="error" id="duplicateError"></div></dialog>
 
+<dialog id="flyerDialog"><h3>フライヤー読込</h3><div class="small">フライヤー画像から文字を読み取り、演者候補を抽出します。読み取り後、不要な行を消して保存してください。</div><div class="formGrid"><input type="file" id="flyerInput" accept="image/*" /><button id="runOcrBtn" style="border:0;border-radius:14px;padding:12px;font-weight:800;background:var(--accent);color:#06101f">画像から読み取り</button><label>読み取り結果・演者候補<textarea id="ocrText" placeholder="例：
+18:30,PINO,1
+20:00,PUNCH,1
+20:30,OSAGARI,2"></textarea></label></div><div class="small" id="ocrStatus"></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveOcrBtn">演者に反映</button></div><div class="error" id="ocrError"></div></dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -61,13 +67,8 @@ let data = null;
 let filter = 'all';
 
 const defaultData = {
-  title: 'SOUL JAMAICA',
-  artists: [
-    { id:'pino', name:'PINO', time:'18:30', total:1, arrived:0, memo:'' },
-    { id:'punch', name:'PUNCH', time:'20:00', total:1, arrived:1, memo:'' },
-    { id:'osagari', name:'OSAGARI', time:'20:30', total:2, arrived:0, memo:'もう1人後入り' },
-    { id:'rwood', name:'Rwood', time:'22:00', total:1, arrived:0, memo:'' }
-  ],
+  title: 'イベント名未設定',
+  artists: [],
   updatedAt: Date.now()
 };
 
@@ -143,7 +144,7 @@ editEventBtn.onclick=()=>{ titleInput.value=data?.title||''; eventInput.value=ev
 editArtistsBtn.onclick=()=>{ artistsError.textContent=''; artistsText.value=(data?.artists||[]).map(a=>[a.time||'',a.name||'',a.total||1,a.memo||''].join(',')).join('\n'); artistsDialog.showModal(); };
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
 saveEventBtn.onclick=()=>{ const newId=sanitizeEventId(eventInput.value); if(titleInput.value.trim()) update(eventRef(), {title:titleInput.value.trim(), updatedAt:Date.now()}); eventDialog.close(); if(newId!==eventId){ eventId=newId; location.href=`${location.pathname}?event=${encodeURIComponent(eventId)}`; } };
-saveArtistsBtn.onclick=()=>{ try{ const artists = artistsText.value.split('\n').map(x=>x.trim()).filter(Boolean).map((line,i)=>{ const p=line.split(',').map(v=>v.trim()); let time='',name='',total=1,memo=''; if(/^\d{1,2}:\d{2}$/.test(p[0])){ [time,name,total,memo]=p; } else { [name,total,memo]=p; } if(!name) throw new Error(`${i+1}行目の演者名が空です`); return {id:uid(name,i), time, name, total:Math.max(1,Number(total)||1), arrived:0, memo:memo||''}; }); update(eventRef(), {artists, updatedAt:Date.now()}); artistsDialog.close(); }catch(err){ artistsError.textContent=err.message; } };
+saveArtistsBtn.onclick=()=>{ try{ const artists = parseArtistText(artistsText.value); update(eventRef(), {artists, updatedAt:Date.now()}); artistsDialog.close(); }catch(err){ artistsError.textContent=err.message; } };
 
 settingsBtn.onclick=()=>{ settingsEventId.textContent=eventId; settingsDialog.showModal(); };
 resetArrivalsBtn.onclick=async()=>{
@@ -180,6 +181,53 @@ saveDuplicateBtn.onclick=async()=>{
     location.href=`${location.pathname}?event=${encodeURIComponent(newId)}`;
   }catch(err){ duplicateError.textContent=err.message; }
 };
+
+flyerBtn.onclick=()=>{ ocrError.textContent=''; ocrStatus.textContent=''; ocrText.value=''; flyerInput.value=''; flyerDialog.showModal(); };
+runOcrBtn.onclick=async()=>{
+  try{
+    ocrError.textContent='';
+    const file=flyerInput.files && flyerInput.files[0];
+    if(!file) throw new Error('画像を選んでください');
+    ocrStatus.textContent='読み取り中... 少し時間がかかります';
+    const result=await Tesseract.recognize(file, 'jpn+eng', { logger:m=>{ if(m.status) ocrStatus.textContent=`読み取り中... ${m.status} ${m.progress?Math.round(m.progress*100)+'%':''}`; } });
+    const raw=result.data.text || '';
+    ocrText.value=extractArtistLines(raw);
+    ocrStatus.textContent='読み取り完了。不要な行を消して、必要なら人数を直してください。';
+  }catch(err){ ocrError.textContent=err.message || String(err); ocrStatus.textContent=''; }
+};
+saveOcrBtn.onclick=()=>{
+  try{
+    const artists=parseArtistText(ocrText.value);
+    update(eventRef(), {artists, updatedAt:Date.now()});
+    flyerDialog.close();
+  }catch(err){ ocrError.textContent=err.message; }
+};
+function extractArtistLines(raw){
+  const ng=/open|start|close|door|adv|予約|料金|charge|entrance|ticket|¥|円|date|場所|会場|池袋|knot|at |dj\s*bar/i;
+  const lines=raw.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+  const picked=[];
+  for(const line of lines){
+    let t=line.replace(/[|｜•・]/g,' ').replace(/\s{2,}/g,' ').trim();
+    if(t.length<2 || t.length>40) continue;
+    if(ng.test(t)) continue;
+    const time=(t.match(/(\d{1,2})[:：](\d{2})/)||[]);
+    let tm='';
+    if(time[0]){ tm=`${time[1].padStart(2,'0')}:${time[2]}`; t=t.replace(time[0],'').trim(); }
+    t=t.replace(/^(DJ|LIVE|GUEST|REGULAR)[:：\s-]*/i,'').trim();
+    if(!t) continue;
+    picked.push(`${tm?tm+',':''}${t},1`);
+  }
+  return [...new Set(picked)].join('\n');
+}
+function parseArtistText(text){
+  return text.split('\n').map(x=>x.trim()).filter(Boolean).map((line,i)=>{
+    const p=line.split(',').map(v=>v.trim()); let time='',name='',total=1,memo='';
+    if(/^\d{1,2}:\d{2}$/.test(p[0])){ [time,name,total,memo]=p; } else { [name,total,memo]=p; }
+    if(!name) throw new Error(`${i+1}行目の演者名が空です`);
+    return {id:uid(name,i), time, name, total:Math.max(1,Number(total)||1), arrived:0, memo:memo||''};
+  });
+}
+
 connect(); setInterval(()=>data&&render(),30000);
 </script>
 </body>
