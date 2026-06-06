@@ -1,6 +1,6 @@
 {
-  "name": "演者受付",
-  "short_name": "演者受付",
+  "name": "エントランス屋さん太郎",
+  "short_name": "エントランス屋さん太郎",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#111111",
