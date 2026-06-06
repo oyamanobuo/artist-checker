@@ -51,8 +51,8 @@
 <dialog id="feeDialog"><h3>入場料設定</h3><div class="small">料金名・金額・ドリンク枚数を入力。金額は500円刻み。例：通常 ¥1000 / 1D、ディスカウント ¥500 / 1D、ゲスト ¥0 / 0D</div><div class="feeRows" id="feeRows"></div><button class="addFeeBtn" id="addFeeRowBtn" type="button">＋ 料金を追加</button><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveFeeBtn">保存</button></div><div class="error" id="feeError"></div></dialog>
 <dialog id="artistsDialog"><h3>演者編集</h3><div class="small">1行に「時間,演者名,人数,メモ」。時間なしでもOK。例：20:30,OSAGARI,2,もう1人後入り</div><textarea id="artistsText"></textarea><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveArtistsBtn">保存</button></div><div class="error" id="artistsError"></div></dialog>
 
-<dialog id="singleArtistDialog"><h3>演者を修正</h3><div class="formGrid"><input type="hidden" id="singleArtistId" /><label>演者名<input id="singleNameInput" /></label><label>開始時間<input id="singleTimeInput" placeholder="例：20:30" /></label><label>人数<input id="singleTotalInput" type="number" min="1" /></label><label>到着人数<input id="singleArrivedInput" type="number" min="0" /></label><label>メモ<input id="singleMemoInput" placeholder="例：もう1人後入り" /></label></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button class="dangerBtn" id="deleteSingleArtistBtn">削除</button><button id="saveSingleArtistBtn">保存</button></div><div class="error" id="singleArtistError"></div></dialog>
-<dialog id="addArtistDialog"><h3>演者を手動追加</h3><div class="formGrid"><label>演者名<input id="newArtistName" placeholder="例：るい" /></label><label>開始時間<input id="newArtistTime" placeholder="例：20:30（空欄OK）" /></label><label>人数<input id="newArtistTotal" type="number" min="1" value="1" /></label><label>メモ<input id="newArtistMemo" placeholder="例：フード / 物販 / カメラ" /></label></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveNewArtistBtn">追加</button></div><div class="error" id="addArtistError"></div></dialog>
+<dialog id="singleArtistDialog"><h3>演者を修正</h3><div class="formGrid"><input type="hidden" id="singleArtistId" /><label>演者名<input id="singleNameInput" /></label><label>開始時間<input id="singleTimeInput" placeholder="例：1730 / 17:30" /></label><label>人数<input id="singleTotalInput" type="number" min="1" /></label><label>到着人数<input id="singleArrivedInput" type="number" min="0" /></label><label>メモ<input id="singleMemoInput" placeholder="例：もう1人後入り" /></label></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button class="dangerBtn" id="deleteSingleArtistBtn">削除</button><button id="saveSingleArtistBtn">保存</button></div><div class="error" id="singleArtistError"></div></dialog>
+<dialog id="addArtistDialog"><h3>演者を手動追加</h3><div class="formGrid"><label>演者名<input id="newArtistName" placeholder="例：るい" /></label><label>開始時間<input id="newArtistTime" placeholder="例：1730 / 17:30（空欄OK）" /></label><label>人数<input id="newArtistTotal" type="number" min="1" value="1" /></label><label>メモ<input id="newArtistMemo" placeholder="例：フード / 物販 / カメラ" /></label></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveNewArtistBtn">追加</button></div><div class="error" id="addArtistError"></div></dialog>
 <dialog id="settingsDialog"><h3>設定</h3><div class="small">イベントID：<span id="settingsEventId"></span></div><div class="settingsList"><button id="openEventSettingsBtn">イベント設定</button><button id="openFlyerBtn">タイムテーブル読込</button><button id="addArtistBtn">演者を手動追加</button><button id="addFeeFromSettingsBtn">入場料を追加・編集</button><button id="resetArrivalsBtn">到着状況だけリセット</button><button id="resetSalesBtn">入場料カウントだけリセット</button><button id="duplicateEventBtn">イベントを複製</button><button class="dangerAction" id="deleteEventBtn">イベント全削除</button></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button></div></dialog>
 <dialog id="duplicateDialog"><h3>イベントを複製</h3><div class="formGrid"><label>新しいイベントID<input id="duplicateIdInput" placeholder="例：soul-jamaica-vol2" /></label><label>新しいイベント名<input id="duplicateTitleInput" placeholder="例：SOUL JAMAICA Vol.2" /></label><div class="small">演者・人数・タイムテーブルをコピーして、到着状況は0に戻します。</div></div><div class="dialogBtns"><button class="cancel" data-close>キャンセル</button><button id="saveDuplicateBtn">複製する</button></div><div class="error" id="duplicateError"></div></dialog>
 
@@ -283,8 +283,8 @@ saveSingleArtistBtn.onclick=async()=>{
     if(i<0) throw new Error('対象の演者が見つかりません');
     const name=singleNameInput.value.trim();
     if(!name) throw new Error('演者名を入力してください');
-    const time=singleTimeInput.value.trim();
-    if(time && !/^\d{1,2}:\d{2}$/.test(time)) throw new Error('時間は 20:30 の形式で入力してください');
+    const time=normalizeTimeInput(singleTimeInput.value);
+    if(singleTimeInput.value.trim() && !time) throw new Error('時間は 1730 または 17:30 の形式で入力してください');
     const total=Math.max(1, Number(singleTotalInput.value)||1);
     const arrived=Math.max(0, Math.min(total, Number(singleArrivedInput.value)||0));
     artists[i]={...artists[i], name, time, total, arrived, memo:singleMemoInput.value.trim()};
@@ -336,8 +336,8 @@ saveNewArtistBtn.onclick=async()=>{
     if(!data) return;
     const name=newArtistName.value.trim();
     if(!name) throw new Error('演者名を入力してください');
-    const time=newArtistTime.value.trim();
-    if(time && !/^\d{1,2}:\d{2}$/.test(time)) throw new Error('時間は 20:30 の形式で入力してください');
+    const time=normalizeTimeInput(newArtistTime.value);
+    if(newArtistTime.value.trim() && !time) throw new Error('時間は 1730 または 17:30 の形式で入力してください');
     const total=Math.max(1, Number(newArtistTotal.value)||1);
     const artists=[...(Array.isArray(data.artists)?data.artists:[])];
     artists.push({
@@ -704,10 +704,28 @@ function loadImageFromFile(file){
   });
 }
 
+function normalizeTimeInput(value){
+  const raw = String(value || '').trim();
+  if(!raw) return '';
+  const normalized = raw
+    .replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0)-0xFEE0))
+    .replace(/[：．.]/g, ':')
+    .replace(/\s+/g, '');
+
+  let m = normalized.match(/^([0-2]?\d):([0-5]\d)$/);
+  if(m) return `${m[1].padStart(2,'0')}:${m[2]}`;
+
+  m = normalized.match(/^([0-2]?\d)([0-5]\d)$/);
+  if(m) return `${m[1].padStart(2,'0')}:${m[2]}`;
+
+  return '';
+}
+
 function parseArtistText(text){
   return text.split('\n').map(x=>x.trim()).filter(Boolean).map((line,i)=>{
     const p=line.split(',').map(v=>v.trim()); let time='',name='',total=1,memo='';
-    if(/^\d{1,2}:\d{2}$/.test(p[0])){ [time,name,total,memo]=p; } else { [name,total,memo]=p; }
+    const parsedTime = normalizeTimeInput(p[0]);
+    if(parsedTime){ time=parsedTime; [,name,total,memo]=p; } else { [name,total,memo]=p; }
     if(!name) throw new Error(`${i+1}行目の演者名が空です`);
     return {id:uid(name,i), time, name, total:Math.max(1,Number(total)||1), arrived:0, memo:memo||''};
   });
