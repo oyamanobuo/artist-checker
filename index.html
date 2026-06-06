@@ -112,7 +112,7 @@ function connect(){
 function render(){
   if(!data) return;
   const artists = Array.isArray(data.artists) ? data.artists : [];
-  document.getElementById('eventTitle').textContent = data.title || '演者受付';
+  document.getElementById('eventTitle').textContent = data.title || 'エントランス屋さん太郎';
   document.getElementById('eventIdLabel').textContent = `event: ${eventId}`;
   const totalPeople = artists.reduce((s,a)=>s+Number(a.total||1),0);
   const arrivedPeople = artists.reduce((s,a)=>s+Math.min(Number(a.arrived||0),Number(a.total||1)),0);
