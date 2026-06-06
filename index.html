@@ -16,7 +16,7 @@
   <meta name="msapplication-TileColor" content="#ffd11a" />
   <style>
     :root{--bg:#0e1117;--panel:#171b24;--panel2:#202635;--text:#f5f7fb;--muted:#9aa4b2;--line:#2d3445;--accent:#6ea8ff;--ok:#42d392;--warn:#ffcf5a;--danger:#ff6b6b;}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;} button,input,textarea{font:inherit} .app{max-width:560px;margin:0 auto;min-height:100svh;padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 28px)}.top{padding-bottom:8px}.header{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}.titleRow{display:flex;gap:10px;align-items:center;justify-content:space-between}.title{font-size:18px;font-weight:800;letter-spacing:.02em;line-height:1.2}.eventId{font-size:9px;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topActions{display:flex;gap:6px;align-items:center}.shareBtn,.gearBtn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:8px 10px;font-size:12px}.gearBtn{width:38px;height:36px;padding:0;font-size:18px}.stats{display:flex;gap:8px;margin-top:10px}.stat{flex:1;background:#10141d;border:1px solid var(--line);border-radius:14px;padding:8px 9px}.stat b{font-size:18px}.stat span{font-size:11px;color:var(--muted);margin-left:4px}.now{margin-top:8px;border:1px solid var(--line);background:#10141d;border-radius:14px;padding:8px 10px;font-size:13px;display:flex;justify-content:space-between;gap:8px}.now strong{color:var(--accent)}.controls{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}.search{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:12px}.tabs{display:flex;gap:6px}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:14px;padding:0 11px}.tab.active{background:var(--accent);color:#06101f;border-color:var(--accent);font-weight:700}.list{display:flex;flex-direction:column;gap:9px;margin-top:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.card.arrived{opacity:.72}.name{font-size:18px;font-weight:800}.time{font-size:15px;color:var(--accent);font-weight:800;margin-top:4px}.memo{font-size:12px;color:var(--warn);margin-top:4px}.count{display:flex;align-items:center;gap:8px}.countBtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:22px}.num{min-width:54px;text-align:center;font-size:18px;font-weight:800}.full .num{color:var(--ok)}.tools{display:flex;gap:8px;margin-top:10px}.tools button{flex:1;border:0;border-radius:16px;padding:12px 8px;font-weight:800;color:#06101f;background:var(--accent)}.tools button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}dialog{width:min(560px,calc(100% - 24px));border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text);padding:16px}dialog::backdrop{background:rgba(0,0,0,.65)}.formGrid{display:grid;gap:10px}label{font-size:12px;color:var(--muted)}input,textarea{width:100%;border:1px solid var(--line);background:#10141d;color:var(--text);border-radius:12px;padding:12px}textarea{min-height:160px}.row{display:grid;grid-template-columns:1fr 90px 100px;gap:8px}.dialogBtns{display:flex;gap:8px;margin-top:12px}.dialogBtns button{flex:1;border:0;border-radius:14px;padding:12px;font-weight:800;background:var(--accent);color:#06101f}.dialogBtns button.cancel{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.dangerBtn{background:var(--danger)!important;color:#210606!important}.warnBtn{background:var(--warn)!important;color:#211900!important}.settingsList{display:grid;gap:10px;margin-top:10px}.settingsList button{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px;font-weight:800;background:var(--panel2);color:var(--text);text-align:left}.settingsList .dangerAction{border-color:rgba(255,107,107,.6);color:#ffb3b3}.small{font-size:12px;color:var(--muted);line-height:1.6}.error{color:var(--danger);font-size:13px;margin-top:8px}.hint{font-size:11px;color:var(--muted);margin-top:4px}.editMini{font-size:11px;color:var(--muted);margin-top:4px}.miniStatus{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;background:#10141d;border:1px solid var(--line);border-radius:12px;padding:7px 9px;font-size:12px;color:var(--muted)}.miniStatus b{color:var(--text);font-size:13px}.miniStatus strong{color:var(--accent);font-size:13px}.performerCount{grid-column:1 / -1;background:#10141d;border:1px solid var(--line);border-radius:12px;padding:7px 10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}.performerCount b{color:var(--text);font-size:14px}.feeSummary{margin-top:6px;border:1px solid var(--line);border-radius:12px;background:rgba(110,168,255,.08);padding:8px 10px;display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:800}.feeSummary span{color:var(--muted);font-weight:700}.feeSummary b{color:var(--text)}.sectionTitle{font-size:12px;color:var(--muted);font-weight:800;margin:12px 2px 6px}.sectionTitle b{color:var(--text);font-size:13px}.feeBar{margin-top:12px;background:#10141d;border:1px solid var(--line);border-radius:14px;padding:8px}.feeHead{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:6px}.feeTotal{font-size:14px;color:var(--text);font-weight:800}.feeList{display:grid;gap:6px}.feeItem{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:7px;touch-action:manipulation}.feeName{font-size:13px;font-weight:800}.feeMeta{font-size:11px;color:var(--muted);margin-top:2px}.feeSub{font-size:12px;font-weight:800;color:var(--ok);margin-top:2px}.feeCount{display:flex;align-items:center;gap:6px}.feeCount button{width:30px;height:30px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:18px}.feeCount b{min-width:24px;text-align:center}.tools button{font-size:12px;padding:11px 6px}.feeRows{display:grid;gap:10px}.feeRow{border:1px solid var(--line);border-radius:14px;padding:10px;background:#10141d;display:grid;grid-template-columns:1fr 94px 66px 34px;gap:8px;align-items:end}.feeRow label{font-size:11px}.feeRow input{padding:10px}.feeRow .delFeeRow{height:40px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--danger);font-weight:900}.addFeeBtn{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--panel2);color:var(--text);font-weight:800}dialog:not([open]){display:none}.hide{display:none!important}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;} button,input,textarea{font:inherit} .app{max-width:560px;margin:0 auto;min-height:100svh;padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 28px)}.top{padding-bottom:8px}.header{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}.titleRow{display:flex;gap:10px;align-items:center;justify-content:space-between}.title{font-size:18px;font-weight:800;letter-spacing:.02em;line-height:1.2}.eventId{font-size:9px;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topActions{display:flex;gap:6px;align-items:center}.shareBtn,.gearBtn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:8px 10px;font-size:12px}.gearBtn{width:38px;height:36px;padding:0;font-size:18px}.stats{display:flex;gap:8px;margin-top:10px}.stat{flex:1;background:#10141d;border:1px solid var(--line);border-radius:14px;padding:8px 9px}.stat b{font-size:18px}.stat span{font-size:11px;color:var(--muted);margin-left:4px}.now{margin-top:8px;border:1px solid var(--line);background:#10141d;border-radius:14px;padding:8px 10px;font-size:13px;display:flex;justify-content:space-between;gap:8px}.now strong{color:var(--accent)}.controls{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}.search{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:12px}.tabs{display:flex;gap:6px}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:14px;padding:0 11px}.tab.active{background:var(--accent);color:#06101f;border-color:var(--accent);font-weight:700}.list{display:flex;flex-direction:column;gap:9px;margin-top:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.card.arrived{opacity:.72}.name{font-size:18px;font-weight:800}.time{font-size:15px;color:var(--accent);font-weight:800;margin-top:4px}.memo{font-size:12px;color:var(--warn);margin-top:4px}.count{display:flex;align-items:center;gap:8px}.countBtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:22px}.num{min-width:54px;text-align:center;font-size:18px;font-weight:800}.full .num{color:var(--ok)}.tools{display:flex;gap:8px;margin-top:10px}.tools button{flex:1;border:0;border-radius:16px;padding:12px 8px;font-weight:800;color:#06101f;background:var(--accent)}.tools button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}dialog{width:min(560px,calc(100% - 24px));border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text);padding:16px}dialog::backdrop{background:rgba(0,0,0,.65)}.formGrid{display:grid;gap:10px}label{font-size:12px;color:var(--muted)}input,textarea{width:100%;border:1px solid var(--line);background:#10141d;color:var(--text);border-radius:12px;padding:12px}textarea{min-height:160px}.row{display:grid;grid-template-columns:1fr 90px 100px;gap:8px}.dialogBtns{display:flex;gap:8px;margin-top:12px}.dialogBtns button{flex:1;border:0;border-radius:14px;padding:12px;font-weight:800;background:var(--accent);color:#06101f}.dialogBtns button.cancel{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.dangerBtn{background:var(--danger)!important;color:#210606!important}.warnBtn{background:var(--warn)!important;color:#211900!important}.settingsList{display:grid;gap:10px;margin-top:10px}.settingsList button{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px;font-weight:800;background:var(--panel2);color:var(--text);text-align:left}.settingsList .dangerAction{border-color:rgba(255,107,107,.6);color:#ffb3b3}.small{font-size:12px;color:var(--muted);line-height:1.6}.error{color:var(--danger);font-size:13px;margin-top:8px}.hint{font-size:11px;color:var(--muted);margin-top:4px}.editMini{font-size:11px;color:var(--muted);margin-top:4px}.miniStatus{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;background:#10141d;border:1px solid var(--line);border-radius:12px;padding:7px 9px;font-size:12px;color:var(--muted)}.miniStatus b{color:var(--text);font-size:13px}.miniStatus strong{color:var(--accent);font-size:13px}.performerCount{grid-column:1 / -1;background:#10141d;border:1px solid var(--line);border-radius:12px;padding:7px 10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}.performerCount b{color:var(--text);font-size:14px}.feeSummary{margin-top:6px;border:1px solid var(--line);border-radius:12px;background:rgba(110,168,255,.08);padding:8px 10px;display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:800}.feeSummary span{color:var(--muted);font-weight:700}.feeSummary b{color:var(--text)}.sectionTitle{font-size:12px;color:var(--muted);font-weight:800;margin:12px 2px 6px}.sectionTitle b{color:var(--text);font-size:13px}.feeBar{margin-top:12px;background:#10141d;border:1px solid var(--line);border-radius:14px;padding:8px}.feeHead{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:6px}.feeTotal{font-size:14px;color:var(--text);font-weight:800}.feeList{display:grid;gap:6px}.feeItem{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:7px;touch-action:manipulation}.feeName{font-size:13px;font-weight:800}.feeMeta{font-size:11px;color:var(--muted);margin-top:2px}.feeSub{font-size:12px;font-weight:800;color:var(--ok);margin-top:2px}.feeCount{display:flex;align-items:center;gap:6px}.feeCount button{width:30px;height:30px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:18px}.feeCount b{min-width:24px;text-align:center}.tools button{font-size:12px;padding:11px 6px}.feeRows{display:grid;gap:10px}.feeRow{border:1px solid var(--line);border-radius:14px;padding:10px;background:#10141d;display:grid;grid-template-columns:1fr 94px 66px 34px;gap:8px;align-items:end}.feeRow label{font-size:11px}.feeRow input{padding:10px}.feeRow .delFeeRow{height:40px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--danger);font-weight:900}.addFeeBtn{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--panel2);color:var(--text);font-weight:800}.hide{display:none!important}dialog:not([open]){display:none!important}
   </style>
 </head>
 <body>
@@ -52,10 +52,11 @@
 <dialog id="artistsDialog"><h3>演者編集</h3><div class="small">1行に「時間,演者名,人数,メモ」。時間なしでもOK。例：20:30,OSAGARI,2,もう1人後入り</div><textarea id="artistsText"></textarea><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveArtistsBtn">保存</button></div><div class="error" id="artistsError"></div></dialog>
 
 <dialog id="singleArtistDialog"><h3>演者を修正</h3><div class="formGrid"><input type="hidden" id="singleArtistId" /><label>演者名<input id="singleNameInput" /></label><label>開始時間<input id="singleTimeInput" placeholder="例：20:30" /></label><label>人数<input id="singleTotalInput" type="number" min="1" /></label><label>到着人数<input id="singleArrivedInput" type="number" min="0" /></label><label>メモ<input id="singleMemoInput" placeholder="例：もう1人後入り" /></label></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button class="dangerBtn" id="deleteSingleArtistBtn">削除</button><button id="saveSingleArtistBtn">保存</button></div><div class="error" id="singleArtistError"></div></dialog>
-<dialog id="settingsDialog"><h3>設定</h3><div class="small">イベントID：<span id="settingsEventId"></span></div><div class="settingsList"><button id="openEventSettingsBtn">イベント設定</button><button id="openFlyerBtn">タイムテーブル読込</button><button id="addFeeFromSettingsBtn">入場料を追加・編集</button><button id="resetArrivalsBtn">到着状況だけリセット</button><button id="resetSalesBtn">入場料カウントだけリセット</button><button id="duplicateEventBtn">イベントを複製</button><button class="dangerAction" id="deleteEventBtn">イベント全削除</button></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button></div></dialog>
+<dialog id="addArtistDialog"><h3>演者を手動追加</h3><div class="formGrid"><label>演者名<input id="newArtistName" placeholder="例：るい" /></label><label>開始時間<input id="newArtistTime" placeholder="例：20:30（空欄OK）" /></label><label>人数<input id="newArtistTotal" type="number" min="1" value="1" /></label><label>メモ<input id="newArtistMemo" placeholder="例：フード / 物販 / カメラ" /></label></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveNewArtistBtn">追加</button></div><div class="error" id="addArtistError"></div></dialog>
+<dialog id="settingsDialog"><h3>設定</h3><div class="small">イベントID：<span id="settingsEventId"></span></div><div class="settingsList"><button id="openEventSettingsBtn">イベント設定</button><button id="openFlyerBtn">タイムテーブル読込</button><button id="addArtistBtn">演者を手動追加</button><button id="addFeeFromSettingsBtn">入場料を追加・編集</button><button id="resetArrivalsBtn">到着状況だけリセット</button><button id="resetSalesBtn">入場料カウントだけリセット</button><button id="duplicateEventBtn">イベントを複製</button><button class="dangerAction" id="deleteEventBtn">イベント全削除</button></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button></div></dialog>
 <dialog id="duplicateDialog"><h3>イベントを複製</h3><div class="formGrid"><label>新しいイベントID<input id="duplicateIdInput" placeholder="例：soul-jamaica-vol2" /></label><label>新しいイベント名<input id="duplicateTitleInput" placeholder="例：SOUL JAMAICA Vol.2" /></label><div class="small">演者・人数・タイムテーブルをコピーして、到着状況は0に戻します。</div></div><div class="dialogBtns"><button class="cancel" data-close>キャンセル</button><button id="saveDuplicateBtn">複製する</button></div><div class="error" id="duplicateError"></div></dialog>
 
-<dialog id="flyerDialog"><h3>タイムテーブル読込</h3><div class="small">画像全体ではなく、タイムテーブル表の部分だけをなるべく大きく撮ると精度が上がります。開始-終了の時間表記から演者候補を抽出します。</div><div class="formGrid"><input type="file" id="flyerInput" accept="image/*" /><button id="runOcrBtn" style="border:0;border-radius:14px;padding:12px;font-weight:800;background:var(--accent);color:#06101f">強化読み取り</button><label>読み取り結果・演者候補<textarea id="ocrText" placeholder="例：
+<dialog id="flyerDialog"><h3>タイムテーブル読込</h3><div class="small">タイムテーブル画像から文字を読み取り、時間つきの演者候補を抽出します。読み取り後、必要に応じて修正して保存してください。</div><div class="formGrid"><input type="file" id="flyerInput" accept="image/*" /><button id="runOcrBtn" style="border:0;border-radius:14px;padding:12px;font-weight:800;background:var(--accent);color:#06101f">画像から読み取り</button><label>読み取り結果・演者候補<textarea id="ocrText" placeholder="例：
 18:30,PINO,1
 20:00,PUNCH,1
 20:30,OSAGARI,2"></textarea></label></div><div class="small" id="ocrStatus"></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveOcrBtn">演者に反映</button></div><div class="error" id="ocrError"></div></dialog>
@@ -320,6 +321,38 @@ settingsBtn.onclick=()=>{ settingsEventId.textContent=eventId; settingsDialog.sh
 openEventSettingsBtn.onclick=()=>{ settingsDialog.close(); openEventDialog(); };
 openFlyerBtn.onclick=()=>{ settingsDialog.close(); openFlyerDialog(); };
 addFeeFromSettingsBtn.onclick=()=>{ settingsDialog.close(); openFeeDialog(); };
+
+addArtistBtn.onclick=()=>{
+  settingsDialog.close();
+  addArtistError.textContent='';
+  newArtistName.value='';
+  newArtistTime.value='';
+  newArtistTotal.value=1;
+  newArtistMemo.value='';
+  addArtistDialog.showModal();
+};
+saveNewArtistBtn.onclick=async()=>{
+  try{
+    if(!data) return;
+    const name=newArtistName.value.trim();
+    if(!name) throw new Error('演者名を入力してください');
+    const time=newArtistTime.value.trim();
+    if(time && !/^\d{1,2}:\d{2}$/.test(time)) throw new Error('時間は 20:30 の形式で入力してください');
+    const total=Math.max(1, Number(newArtistTotal.value)||1);
+    const artists=[...(Array.isArray(data.artists)?data.artists:[])];
+    artists.push({
+      id: uid(name, Date.now()),
+      name,
+      time,
+      total,
+      arrived: 0,
+      memo: newArtistMemo.value.trim()
+    });
+    await update(eventRef(), {artists, updatedAt:Date.now()});
+    addArtistDialog.close();
+  }catch(err){ addArtistError.textContent=err.message; }
+};
+
 resetArrivalsBtn.onclick=async()=>{
   if(!data) return;
   if(!confirm('全演者の到着状況を0に戻しますか？\n演者リスト・人数・時間は残ります。')) return;
@@ -355,7 +388,7 @@ saveDuplicateBtn.onclick=async()=>{
     const newId=sanitizeEventId(duplicateIdInput.value);
     if(!newId) throw new Error('イベントIDを入力してください');
     if(newId===eventId) throw new Error('今と違うイベントIDにしてください');
-    const copy={...data, title: duplicateTitleInput.value.trim() || data?.title || 'エントランス屋さん太郎', artists:(data?.artists||[]).map(a=>({...a, arrived:0, arrivedAt:null})), prices:(Array.isArray(data?.prices)?data.prices:[]).map(p=>({...p, count:0})), updatedAt:Date.now(), copiedFrom:eventId};
+    const copy={...data, title: duplicateTitleInput.value.trim() || data?.title || '演者受付', artists:(data?.artists||[]).map(a=>({...a, arrived:0, arrivedAt:null})), prices:(Array.isArray(data?.prices)?data.prices:[]).map(p=>({...p, count:0})), updatedAt:Date.now(), copiedFrom:eventId};
     await set(eventBaseRef(newId), copy);
     duplicateDialog.close();
     location.href=`${location.pathname}?event=${encodeURIComponent(newId)}`;
@@ -368,34 +401,22 @@ runOcrBtn.onclick=async()=>{
     ocrError.textContent='';
     const file=flyerInput.files && flyerInput.files[0];
     if(!file) throw new Error('画像を選んでください');
-    ocrStatus.textContent='読み取り中... 画像を補正しています';
+    ocrStatus.textContent='読み取り中... 少し時間がかかります';
     const imagesForOcr=await preprocessImageVariantsForOcr(file);
     const texts=[];
-    const jobs=[
-      {lang:'jpn+eng', psm:'6', name:'日本語＋英語/表'},
-      {lang:'eng', psm:'6', name:'英数字/表'},
-      {lang:'jpn+eng', psm:'11', name:'日本語＋英語/散文'},
-      {lang:'eng', psm:'11', name:'英数字/散文'}
-    ];
-    let step=0;
-    const totalSteps=imagesForOcr.length * jobs.length;
     for(let i=0;i<imagesForOcr.length;i++){
-      for(const job of jobs){
-        step++;
-        ocrStatus.textContent=`読み取り中... ${step}/${totalSteps} ${job.name}`;
-        const result=await Tesseract.recognize(imagesForOcr[i], job.lang, {
-          tessedit_pageseg_mode: job.psm,
-          preserve_interword_spaces: '1',
-          logger:m=>{ if(m.status) ocrStatus.textContent=`読み取り中... ${step}/${totalSteps} ${job.name} ${m.progress?Math.round(m.progress*100)+'%':''}`; }
-        });
-        texts.push(result.data.text || '');
-      }
+      ocrStatus.textContent=`読み取り中... 画像補正 ${i+1}/${imagesForOcr.length}`;
+      const result=await Tesseract.recognize(imagesForOcr[i], 'jpn+eng', {
+        tessedit_pageseg_mode: i===0 ? '6' : '11',
+        preserve_interword_spaces: '1',
+        logger:m=>{ if(m.status) ocrStatus.textContent=`読み取り中... ${i+1}/${imagesForOcr.length} ${m.status} ${m.progress?Math.round(m.progress*100)+'%':''}`; }
+      });
+      texts.push(result.data.text || '');
     }
     const raw=texts.join('\n');
     const extracted=extractArtistLines(raw);
     ocrText.value=extracted || raw;
-    const count=(extracted.match(/\n/g)||[]).length + (extracted ? 1 : 0);
-    ocrStatus.textContent=`読み取り完了。${count}件候補を抽出しました。誤字だけ直して保存してください。`;
+    ocrStatus.textContent='読み取り完了。時間つきタイムテーブルを優先して整形しました。変な行だけ直してください。';
   }catch(err){ ocrError.textContent=err.message || String(err); ocrStatus.textContent=''; }
 };
 saveOcrBtn.onclick=()=>{
@@ -407,107 +428,151 @@ saveOcrBtn.onclick=()=>{
 };
 function extractArtistLines(raw){
   const normalized = normalizeOcrText(raw);
-  const rows = normalized.split('\n')
-    .flatMap(x => splitPossibleColumns(x))
-    .map(x=>x.trim())
-    .filter(Boolean);
-  const picked=[];
-  let pendingTime='';
+  const rows = normalized.split('\n').map(x=>x.trim()).filter(Boolean);
+  const timedCandidates = [];
+  const looseCandidates = [];
+  let pendingTime = '';
 
-  for(let idx=0; idx<rows.length; idx++){
-    let line = cleanOcrLine(rows[idx]);
-    if(!line) continue;
+  for(let rawLine of rows){
+    const pieces = splitPossibleScheduleLine(rawLine);
+    for(let line of pieces){
+      line = cleanOcrLine(line);
+      if(!line) continue;
 
-    const range = findTimeRange(line);
-    if(range){
-      let name = line.slice(range.endIndex).trim();
-      name = cleanArtistName(name);
-      // 時間だけ拾えた場合は次の有効行を演者名候補にする
-      if(!name){
-        pendingTime = range.start;
+      const range = findTimeRange(line);
+      if(range){
+        let name = cleanArtistName(line.slice(range.endIndex).trim());
+        if(!name){
+          pendingTime = range.start;
+          continue;
+        }
+        if(!isProbablyNotArtist(name)){
+          timedCandidates.push({time: range.start, name});
+        }
+        pendingTime = '';
         continue;
       }
-      if(!isProbablyNotArtist(name)){
-        picked.push(`${range.start},${name},${guessPeopleCount(name)}`);
-      }
-      pendingTime='';
-      continue;
-    }
 
-    const single = findSingleTime(line);
-    if(single){
-      let name = line.slice(single.endIndex).trim();
-      name = cleanArtistName(name);
-      if(!name){
-        pendingTime = single.time;
+      const single = findSingleTime(line);
+      if(single){
+        let name = cleanArtistName(line.slice(single.endIndex).trim());
+        if(!name){
+          pendingTime = single.time;
+          continue;
+        }
+        if(!isProbablyNotArtist(name)){
+          timedCandidates.push({time: single.time, name});
+        }
+        pendingTime = '';
         continue;
       }
-      if(!isProbablyNotArtist(name)){
-        picked.push(`${single.time},${name},${guessPeopleCount(name)}`);
-      }
-      pendingTime='';
-      continue;
-    }
 
-    if(pendingTime){
-      const name = cleanArtistName(line);
-      if(name && !isProbablyNotArtist(name)){
-        picked.push(`${pendingTime},${name},${guessPeopleCount(name)}`);
+      // 「20:05-20:25」だけが1行、その下に演者名が来る場合
+      if(pendingTime){
+        const name = cleanArtistName(line);
+        if(name && !isProbablyNotArtist(name)){
+          timedCandidates.push({time: pendingTime, name});
+        }
+        pendingTime = '';
+        continue;
       }
-      pendingTime='';
-      continue;
-    }
 
-    const name = cleanArtistName(line);
-    if(name && !isProbablyNotArtist(name)) picked.push(`${name},${guessPeopleCount(name)}`);
+      // 時間が少ない画像だけ、出演者一覧として補助採用する
+      const looseName = cleanArtistName(line);
+      if(looseName && !isProbablyNotArtist(looseName)){
+        looseCandidates.push(looseName);
+      }
+    }
   }
 
-  return uniqueByNameAndTime(picked).join('\n');
+  // 時間つき候補が十分ある場合は、ゴミ行を避けるため時間つきだけ採用
+  if(timedCandidates.length >= 4){
+    return bestTimedCandidates(timedCandidates).map(x => `${x.time},${x.name},${guessPeopleCount(x.name)}`).join('\n');
+  }
+
+  const timed = bestTimedCandidates(timedCandidates).map(x => `${x.time},${x.name},${guessPeopleCount(x.name)}`);
+  const loose = uniqueNames(looseCandidates).map(name => `${name},${guessPeopleCount(name)}`);
+  return [...timed, ...loose].join('\n');
 }
 
-function splitPossibleColumns(line){
-  const s=String(line||'');
-  // 1行に「17:00-17:20 AAA  17:20-17:40 BBB」のように複数枠が入った場合に分割
-  const parts=[];
-  const re=/([0-2]?\d\s*[:.]\s*[0-5]\d\s*(?:-|to|~|→|>|\/|\s{1,})\s*[0-2]?\d\s*[:.]\s*[0-5]\d)/ig;
-  const matches=[...s.matchAll(re)];
-  if(matches.length<=1) return [s];
-  for(let i=0;i<matches.length;i++){
-    const start=matches[i].index;
-    const end=(i+1<matches.length)?matches[i+1].index:s.length;
-    parts.push(s.slice(start,end));
+function splitPossibleScheduleLine(line){
+  // 1行に複数の時間枠が混ざったOCR結果を分割しやすくする
+  const s = String(line || '').replace(/\s+/g, ' ').trim();
+  if(!s) return [];
+  const parts = s.split(/(?=(?:^|\s)[0-2]?\d\s*[:.]\s*[0-5]\d\s*(?:-|〜|~|～)?)/).map(x=>x.trim()).filter(Boolean);
+  return parts.length ? parts : [s];
+}
+
+function bestTimedCandidates(items){
+  const byTime = new Map();
+  for(const item of items){
+    const time = normalizeTime(item.time);
+    const name = cleanArtistName(item.name);
+    if(!time || isProbablyNotArtist(name)) continue;
+    const current = byTime.get(time);
+    if(!current || scoreArtistName(name) > scoreArtistName(current.name)){
+      byTime.set(time, {time, name});
+    }
   }
-  return parts;
+  return [...byTime.values()].sort((a,b)=>toMin(a.time)-toMin(b.time));
+}
+
+function normalizeTime(t){
+  const m = String(t||'').match(/([0-2]?\d)\s*[:.]\s*([0-5]\d)/);
+  if(!m) return '';
+  const h = Number(m[1]);
+  if(h > 29) return '';
+  return `${String(h).padStart(2,'0')}:${m[2]}`;
+}
+
+function scoreArtistName(name){
+  const n = String(name || '');
+  let score = 100;
+  const len = n.length;
+  const jp = (n.match(/[\u3040-\u30ff\u3400-\u9fff]/g)||[]).length;
+  const en = (n.match(/[A-Za-z]/g)||[]).length;
+  const num = (n.match(/[0-9]/g)||[]).length;
+  const junk = (n.match(/[\[\]{}<>_|=£¥#?;]/g)||[]).length;
+  score += jp * 8 + en * 2 + num * 2;
+  if(len >= 2 && len <= 18) score += 20;
+  if(len > 28) score -= 40;
+  score -= junk * 25;
+  if(/\s/.test(n)) score -= 8;
+  if(/^[へヘ一ー~〜\-\s]+/.test(n)) score -= 20;
+  if(/^[qQ][a-z]{3,}/.test(n)) score -= 8;
+  if(/^[A-Z]{4,}\s+[A-Z]{2,}$/.test(n)) score -= 20;
+  if(/(meme|mmmm|rrrr|TR|FT|EE|FEE|RET|PAG|KILUD|ULw|Lwi|JI|E5)/i.test(n)) score -= 25;
+  return score;
+}
+
+function uniqueNames(names){
+  const seen = new Set();
+  const out = [];
+  for(const raw of names){
+    const name = cleanArtistName(raw);
+    const key = name.toLowerCase();
+    if(!name || seen.has(key)) continue;
+    seen.add(key);
+    out.push(name);
+  }
+  return out;
 }
 
 function guessPeopleCount(name){
-  const n=String(name||'');
-  if(/\bb2b\b|back\s*to\s*back|×|&| and |VS\.?/i.test(n)) return 2;
-  return 1;
+  return /\bB2B\b|&|＆|×|x/i.test(name) ? 2 : 1;
 }
-
 function normalizeOcrText(raw){
   return String(raw||'')
     .replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0)-0xFEE0))
     .replace(/[：﹕]/g, ':')
-    .replace(/[−–—〜~～―ー]/g, '-')
+    .replace(/[−–—〜~～]/g, '-')
     .replace(/[，、]/g, ',')
-    .replace(/[‘’‚]/g, "'")
-    .replace(/[“”]/g, '"')
-    // OCR誤認識の補正。時刻の中だけ O/I/l を数字に寄せる
-    .replace(/([0-2OIlS]?[0-9OIlS])\s*[\.．:;]\s*([0-5OIlS][0-9OIlS])/g, (_,h,m)=>`${fixTimeNum(h)}:${fixTimeNum(m)}`)
-    .replace(/\b([0-2OIlS][0-9OIlS])\s*([0-5OIlS][0-9OIlS])\b\s*-/g, (_,h,m)=>`${fixTimeNum(h)}:${fixTimeNum(m)}-`)
-    .replace(/-\s*\b([0-2OIlS][0-9OIlS])\s*([0-5OIlS][0-9OIlS])\b/g, (_,h,m)=>`-${fixTimeNum(h)}:${fixTimeNum(m)}`)
-    // 1700-1720 のようなコロン無し表記
-    .replace(/\b([0-2][0-9])([0-5][0-9])\s*-\s*([0-2][0-9])([0-5][0-9])\b/g, '$1:$2-$3:$4')
-    .replace(/\b([0-2][0-9])([0-5][0-9])\b/g, '$1:$2')
+    .replace(/([0-2]?\d)\s*[\.．]\s*([0-5]\d)/g, '$1:$2')
+    .replace(/([0-2]?\d)\s*;\s*([0-5]\d)/g, '$1:$2')
+    .replace(/([0-2]?\d)\s+([0-5]\d)\s*-/g, '$1:$2-')
+    .replace(/([0-2]?\d)[: ]([0-5]\d)\s*[lI|]\s*([0-2]?\d)[: ]([0-5]\d)/g, '$1:$2-$3:$4')
+    .replace(/-\s*([0-2]?\d)\s+([0-5]\d)/g, '-$1:$2')
     .replace(/\r/g,'\n');
-}
-function fixTimeNum(s){
-  return String(s||'')
-    .replace(/[Oo]/g,'0')
-    .replace(/[Il|]/g,'1')
-    .replace(/[Ss]/g,'5');
 }
 
 function cleanOcrLine(line){
@@ -519,16 +584,14 @@ function cleanOcrLine(line){
 }
 
 function findTimeRange(line){
-  // 17:00-17:20 NAME / 17:00 17:20 NAME / 1700-1720 NAME / 17.00-17.20 NAME
-  const fixed = normalizeOcrText(line);
-  const m = fixed.match(/(^|\s)([0-2]?\d)\s*[:.]\s*([0-5]\d)\s*(?:-|to|~|→|>|\/|\s{1,})\s*([0-2]?\d)\s*[:.]\s*([0-5]\d)/i);
+  // 17:00-17:20 NAME / 17:00 ー 17:20 NAME / 17.00-17.20 NAME
+  const m = line.match(/(^|\s)([0-2]?\d)\s*[:.]\s*([0-5]\d)\s*-\s*([0-2]?\d)\s*[:.]\s*([0-5]\d)/);
   if(!m) return null;
   return { start: `${m[2].padStart(2,'0')}:${m[3]}`, end: `${m[4].padStart(2,'0')}:${m[5]}`, endIndex: m.index + m[0].length };
 }
 
 function findSingleTime(line){
-  const fixed = normalizeOcrText(line);
-  const m = fixed.match(/(^|\s)([0-2]?\d)\s*[:.]\s*([0-5]\d)/);
+  const m = line.match(/(^|\s)([0-2]?\d)\s*[:.]\s*([0-5]\d)/);
   if(!m) return null;
   return { time: `${m[2].padStart(2,'0')}:${m[3]}`, endIndex: m.index + m[0].length };
 }
@@ -536,6 +599,22 @@ function findSingleTime(line){
 function cleanArtistName(name){
   let n = String(name||'').trim();
   n = n.replace(/^(DJ|LIVE|GUEST|REGULAR|ACT|ARTIST|出演者|出演|DJs?)[:：\s-]*/i,'').trim();
+
+  // OCRが日本語の1文字ごとに空白を入れた場合を補正
+  // 例：「大 山 の ぶ 夫」→「大山のぶ夫」
+  n = n.replace(/([\u3040-\u30ff\u3400-\u9fff])\s+(?=[\u3040-\u30ff\u3400-\u9fff])/g, '$1');
+
+  // 先頭に混ざりやすいゴミを除去
+  // 例：「へ 松崎慶太」「一 しゅわっち」→「松崎慶太」「しゅわっち」
+  n = n.replace(/^[へヘ一ー~〜\-\s]+(?=[\u3040-\u30ff\u3400-\u9fffA-Za-z0-9])/g, '');
+
+  // よくあるOCR誤認を軽く補正
+  n = n.replace(/^q(?=glico\b)/i, '');
+  n = n.replace(/^ADPFs$/i, '4DPFs');
+  n = n.replace(/^JI\s*_?E5E?$/i, '川上亮');
+  n = n.replace(/^\]I\s*[£E]5$/i, '川上亮');
+  n = n.replace(/^\]l\s*[£E]5$/i, '川上亮');
+
   n = n.replace(/\s+/g,' ').trim();
   // OCRで末尾に残りがちな記号だけ削る。B2Bやドット入り名は残す。
   n = n.replace(/^[\-–—:：,，.．。\s]+|[\-–—:：,，。\s]+$/g,'').trim();
@@ -549,6 +628,9 @@ function isProbablyNotArtist(name){
   // 数字だけのDJ名（例：3310）もあるので除外しない
   if(/^(open|start|close|door|adv|予約|料金|charge|entrance|ticket|date|場所|会場|address|instagram|twitter|x:|¥|円)$/i.test(n)) return true;
   if(/(https?:|www\.|@|gmail|email|tel|〒)/i.test(n)) return true;
+  // 記号やゴミだけの候補を除外
+  if(!/[A-Za-z0-9\u3040-\u30ff\u3400-\u9fff]/.test(n)) return true;
+  if(scoreArtistName(n) < 70) return true;
   return false;
 }
 
@@ -567,12 +649,10 @@ function uniqueByNameAndTime(lines){
 
 async function preprocessImageVariantsForOcr(file){
   const img=await loadImageFromFile(file);
-  const baseScale=Math.min(5, Math.max(2.5, 3000 / Math.max(img.width, img.height)));
+  const baseScale=Math.min(3, Math.max(2, 1800 / Math.max(img.width, img.height)));
+  // 速度優先：まずはタイムテーブル向け補正1回だけでOCRする
   return [
-    makeOcrCanvas(img, baseScale, 'sharpContrast'),
-    makeOcrCanvas(img, baseScale, 'threshold'),
-    makeOcrCanvas(img, baseScale, 'adaptive'),
-    makeOcrCanvas(img, baseScale, 'gray')
+    makeOcrCanvas(img, baseScale, 'timetable')
   ];
 }
 
@@ -582,28 +662,30 @@ function makeOcrCanvas(img, scale, mode){
   canvas.height=Math.round(img.height*scale);
   const ctx=canvas.getContext('2d', {willReadFrequently:true});
   ctx.fillStyle='#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.imageSmoothingEnabled=true;
-  ctx.imageSmoothingQuality='high';
   ctx.drawImage(img,0,0,canvas.width,canvas.height);
   const imageData=ctx.getImageData(0,0,canvas.width,canvas.height);
   const d=imageData.data;
-  // 平均輝度を見て、暗い画像・明るい画像どちらにも寄せる
-  let sum=0;
-  for(let i=0;i<d.length;i+=4) sum += 0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
-  const avg=sum/(d.length/4);
-  const threshold = avg < 140 ? Math.max(110, avg + 30) : Math.min(205, avg - 20);
   for(let i=0;i<d.length;i+=4){
-    let gray=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
-    if(mode==='threshold'){
-      const v=gray>threshold?255:0; d[i]=d[i+1]=d[i+2]=v;
-    }else if(mode==='adaptive'){
-      gray=(gray-128)*2.2+128;
+    const r=d[i], g=d[i+1], b=d[i+2];
+    let gray=0.299*r+0.587*g+0.114*b;
+
+    if(mode==='timetable'){
+      // 黒背景＋白文字/青時間のタイムテーブル向け。
+      // 青い時間文字を暗く潰さず、白背景に濃い文字として変換する。
+      const isBlueTime = b > r + 35 && b > g + 20 && b > 90;
+      const isLightText = gray > 150;
+      const isDarkBg = gray < 95;
+      let v = 255;
+      if(isBlueTime || isLightText) v = 0;
+      else if(isDarkBg) v = 255;
+      else v = gray > 135 ? 0 : 255;
+      d[i]=d[i+1]=d[i+2]=v;
+    }else if(mode==='threshold'){
+      const v=gray>165?255:0; d[i]=d[i+1]=d[i+2]=v;
+    }else if(mode==='contrast'){
+      gray=(gray-128)*1.8+128;
       gray=Math.max(0,Math.min(255,gray));
-      const v=gray>threshold?255:0; d[i]=d[i+1]=d[i+2]=v;
-    }else if(mode==='sharpContrast'){
-      gray=(gray-128)*1.9+128;
-      gray=Math.max(0,Math.min(255,gray));
-      const v=gray>238?255:(gray<65?0:gray);
+      const v=gray>235?255:(gray<70?0:gray);
       d[i]=d[i+1]=d[i+2]=v;
     }else{
       d[i]=d[i+1]=d[i+2]=gray;
