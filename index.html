@@ -1,126 +1,574 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!doctype html>
+<html lang="ja">
 <head>
-  <link rel="manifest" href="manifest.json">
-
-<link rel="apple-touch-icon" href="icon-512.png">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="1671.6">
-  <style type="text/css">
-    body {background-color: #0d0e12}
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 26.0px; font: 22.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 13.0px; font: 11.0px '.SF NS Text'; color: #8893a3; -webkit-text-stroke: #8893a3; min-height: 13.0px}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.SF NS Text'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #181c28}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 21.0px; font: 18.0px '.Apple Color Emoji UI'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #181c28}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.SF NS Text'; color: #8893a3; -webkit-text-stroke: #8893a3}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.SF NS Text'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #12151b; min-height: 15.0px}
-    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #080d17; -webkit-text-stroke: #080d17; background-color: #5c94ff}
-    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3; background-color: #12151b}
-    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px '.SF NS Text'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa}
-    p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3}
-    p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #181c28}
-    p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #181c28}
-    p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 16.0px; font: 13.0px '.SF NS Text'; color: #fc5258; -webkit-text-stroke: #fc5258; min-height: 16.0px}
-    p.p16 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #190608; -webkit-text-stroke: #190608; background-color: #fc5258}
-    p.p17 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #fda2a4; -webkit-text-stroke: #fda2a4; background-color: #181c28}
-    p.p18 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.SF NS Text'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #0e1016; min-height: 15.0px}
-    p.p19 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 11.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3}
-    p.p20 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 11.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3; background-color: #0e1016}
-    p.p21 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 12.0px '.SF NS Text'; color: #8893a3; -webkit-text-stroke: #8893a3; min-height: 15.0px}
-    span.s1 {font-kerning: none; background-color: #12151b}
-    span.s2 {font-kerning: none}
-    span.s3 {font: 12.0px '.Hiragino Kaku Gothic Interface'; font-kerning: none}
-    span.s4 {font-kerning: none; background-color: #0e1016}
-    span.s5 {font: 13.0px 'Helvetica Neue'; font-kerning: none; color: #5c94ff; background-color: #0e1016; -webkit-text-stroke: 0px #5c94ff}
-    span.s6 {font: 12.0px '.Hiragino Kaku Gothic Interface'; font-kerning: none; background-color: #0e1016}
-    span.s7 {font: 14.0px 'Helvetica Neue'; font-kerning: none; background-color: #0e1016}
-    span.s8 {font: 12.0px '.SF NS Text'; font-kerning: none; background-color: #12151b}
-    span.s9 {font: 12.0px 'Helvetica Neue'; font-kerning: none}
-    span.s10 {font: 11.0px '.Apple Color Emoji UI'; font-kerning: none; background-color: #0e1016}
-    span.s11 {font: 11.0px '.SF NS Text'; font-kerning: none; background-color: #0e1016}
-    span.s12 {font: 11.0px 'Hiragino Sans'; font-kerning: none; color: #5c94ff; background-color: #0e1016; -webkit-text-stroke: 0px #5c94ff}
-    span.s13 {font: 11.0px '.SF NS Text'; font-kerning: none}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>エントランス屋さん太郎</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" sizes="180x180" href="icon-180.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="エントランス屋さん太郎" />
+  <meta name="application-name" content="エントランス屋さん太郎" />
+  <meta name="theme-color" content="#ffd11a" />
+  <meta name="msapplication-TileColor" content="#ffd11a" />
+  <style>
+    :root{--bg:#0e1117;--panel:#171b24;--panel2:#202635;--text:#f5f7fb;--muted:#9aa4b2;--line:#2d3445;--accent:#6ea8ff;--ok:#42d392;--warn:#ffcf5a;--danger:#ff6b6b;}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;} button,input,textarea{font:inherit} .app{max-width:560px;margin:0 auto;min-height:100svh;padding:14px 12px 28px}.top{padding-bottom:8px}.header{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}.titleRow{display:flex;gap:10px;align-items:center;justify-content:space-between}.title{font-size:22px;font-weight:800;letter-spacing:.02em}.eventId{font-size:11px;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topActions{display:flex;gap:6px;align-items:center}.shareBtn,.gearBtn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:8px 10px;font-size:12px}.gearBtn{width:38px;height:36px;padding:0;font-size:18px}.stats{display:flex;gap:8px;margin-top:10px}.stat{flex:1;background:#10141d;border:1px solid var(--line);border-radius:14px;padding:8px 9px}.stat b{font-size:18px}.stat span{font-size:11px;color:var(--muted);margin-left:4px}.now{margin-top:8px;border:1px solid var(--line);background:#10141d;border-radius:14px;padding:8px 10px;font-size:13px;display:flex;justify-content:space-between;gap:8px}.now strong{color:var(--accent)}.controls{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}.search{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:12px}.tabs{display:flex;gap:6px}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:14px;padding:0 11px}.tab.active{background:var(--accent);color:#06101f;border-color:var(--accent);font-weight:700}.list{display:flex;flex-direction:column;gap:9px;margin-top:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.card.arrived{opacity:.72}.name{font-size:18px;font-weight:800}.time{font-size:15px;color:var(--accent);font-weight:800;margin-top:4px}.memo{font-size:12px;color:var(--warn);margin-top:4px}.count{display:flex;align-items:center;gap:8px}.countBtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:22px}.num{min-width:54px;text-align:center;font-size:18px;font-weight:800}.full .num{color:var(--ok)}.tools{display:flex;gap:8px;margin-top:10px}.tools button{flex:1;border:0;border-radius:16px;padding:12px 8px;font-weight:800;color:#06101f;background:var(--accent)}.tools button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}dialog{width:min(560px,calc(100% - 24px));border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text);padding:16px}dialog::backdrop{background:rgba(0,0,0,.65)}.formGrid{display:grid;gap:10px}label{font-size:12px;color:var(--muted)}input,textarea{width:100%;border:1px solid var(--line);background:#10141d;color:var(--text);border-radius:12px;padding:12px}textarea{min-height:160px}.row{display:grid;grid-template-columns:1fr 90px 100px;gap:8px}.dialogBtns{display:flex;gap:8px;margin-top:12px}.dialogBtns button{flex:1;border:0;border-radius:14px;padding:12px;font-weight:800;background:var(--accent);color:#06101f}.dialogBtns button.cancel{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.dangerBtn{background:var(--danger)!important;color:#210606!important}.warnBtn{background:var(--warn)!important;color:#211900!important}.settingsList{display:grid;gap:10px;margin-top:10px}.settingsList button{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px;font-weight:800;background:var(--panel2);color:var(--text);text-align:left}.settingsList .dangerAction{border-color:rgba(255,107,107,.6);color:#ffb3b3}.small{font-size:12px;color:var(--muted);line-height:1.6}.error{color:var(--danger);font-size:13px;margin-top:8px}.hint{font-size:11px;color:var(--muted);margin-top:4px}.editMini{font-size:11px;color:var(--muted);margin-top:4px}.miniStatus{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px;background:#10141d;border:1px solid var(--line);border-radius:12px;padding:7px 9px;font-size:12px;color:var(--muted)}.miniStatus b{color:var(--text);font-size:13px}.miniStatus strong{color:var(--accent);font-size:13px}.performerCount{grid-column:1 / -1;background:#10141d;border:1px solid var(--line);border-radius:12px;padding:7px 10px;font-size:12px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}.performerCount b{color:var(--text);font-size:14px}.feeSummary{margin-top:6px;border:1px solid var(--line);border-radius:12px;background:rgba(110,168,255,.08);padding:8px 10px;display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:800}.feeSummary span{color:var(--muted);font-weight:700}.feeSummary b{color:var(--text)}.sectionTitle{font-size:12px;color:var(--muted);font-weight:800;margin:12px 2px 6px}.sectionTitle b{color:var(--text);font-size:13px}.feeBar{margin-top:12px;background:#10141d;border:1px solid var(--line);border-radius:14px;padding:8px}.feeHead{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-bottom:6px}.feeTotal{font-size:14px;color:var(--text);font-weight:800}.feeList{display:grid;gap:6px}.feeItem{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:12px;padding:7px;touch-action:manipulation}.feeName{font-size:13px;font-weight:800}.feeMeta{font-size:11px;color:var(--muted);margin-top:2px}.feeSub{font-size:12px;font-weight:800;color:var(--ok);margin-top:2px}.feeCount{display:flex;align-items:center;gap:6px}.feeCount button{width:30px;height:30px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:18px}.feeCount b{min-width:24px;text-align:center}.tools button{font-size:12px;padding:11px 6px}.feeRows{display:grid;gap:10px}.feeRow{border:1px solid var(--line);border-radius:14px;padding:10px;background:#10141d;display:grid;grid-template-columns:1fr 94px 66px 34px;gap:8px;align-items:end}.feeRow label{font-size:11px}.feeRow input{padding:10px}.feeRow .delFeeRow{height:40px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--danger);font-weight:900}.addFeeBtn{border:1px solid var(--line);border-radius:14px;padding:12px;background:var(--panel2);color:var(--text);font-weight:800}.hide{display:none!important}
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1"><b>演者受付</b></span></p>
-<p class="p2"><span class="s2"></span><br></p>
-<p class="p3"><span class="s3">共有</span><span class="s2">URL</span></p>
-<p class="p4"><span class="s2">⚙️</span></p>
-<p class="p5"><span class="s4">▶ </span><span class="s5"><b>-</b></span></p>
-<p class="p5"><span class="s6">次</span><span class="s4"> </span><span class="s5"><b>-</b></span></p>
-<p class="p6"><span class="s4">入場料カウント</span></p>
-<p class="p6"><span class="s2"><b>演者チェック</b></span></p>
-<p class="p7"><span class="s2"></span><br></p>
-<p class="p8"><span class="s2"><b>全員</b></span></p>
-<p class="p9"><span class="s2">未到着</span></p>
-<p class="p6"><span class="s4">演者人数</span></p>
-<p class="p10"><span class="s7"><b>0/0</b></span></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>イベント設定</b></span></h3>
-<p class="p6"><span class="s1">イベント名</span></p>
-<p class="p6"><span class="s1">イベント</span><span class="s8">ID</span></p>
-<p class="p12"><span class="s1">イベント</span><span class="s8">ID</span><span class="s1">を変えると別イベントになります。例：</span><span class="s8">soul-jamaica-2026</span></p>
-<p class="p13"><span class="s2"><b>閉じる</b></span></p>
-<p class="p8"><span class="s2"><b>保存</b></span></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>入場料設定</b></span></h3>
-<p class="p12"><span class="s1">料金名・金額・ドリンク枚数を入力。金額は</span><span class="s8">500</span><span class="s1">円刻み。例：通常</span><span class="s8"> ¥1000 / 1D</span><span class="s1">、ディスカウント</span><span class="s8"> ¥500 / 1D</span><span class="s1">、ゲスト</span><span class="s8"> ¥0 / 0D</span></p>
-<p class="p14"><span class="s2"><b>＋</b></span><span class="s9"><b> </b></span><span class="s2"><b>料金を追加</b></span></p>
-<p class="p13"><span class="s2"><b>閉じる</b></span></p>
-<p class="p8"><span class="s2"><b>保存</b></span></p>
-<p class="p15"><span class="s2"></span><br></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>演者編集</b></span></h3>
-<p class="p12"><span class="s8">1</span><span class="s1">行に「時間,演者名,人数,メモ」。時間なしでも</span><span class="s8">OK</span><span class="s1">。例：</span><span class="s8">20:30</span><span class="s1">,</span><span class="s8">OSAGARI</span><span class="s1">,</span><span class="s8">2</span><span class="s1">,もう</span><span class="s8">1</span><span class="s1">人後入り</span></p>
-<p class="p13"><span class="s2"><b>閉じる</b></span></p>
-<p class="p8"><span class="s2"><b>保存</b></span></p>
-<p class="p15"><span class="s2"></span><br></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>演者を修正</b></span></h3>
-<p class="p6"><span class="s1">演者名</span></p>
-<p class="p6"><span class="s1">開始時間</span></p>
-<p class="p6"><span class="s1">人数</span></p>
-<p class="p6"><span class="s1">到着人数</span></p>
-<p class="p6"><span class="s1">メモ</span></p>
-<p class="p13"><span class="s2"><b>閉じる</b></span></p>
-<p class="p16"><span class="s2"><b>削除</b></span></p>
-<p class="p8"><span class="s2"><b>保存</b></span></p>
-<p class="p15"><span class="s2"></span><br></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>設定</b></span></h3>
-<p class="p12"><span class="s1">イベント</span><span class="s8">ID</span><span class="s1">：</span></p>
-<p class="p14"><span class="s2"><b>イベント設定</b></span></p>
-<p class="p14"><span class="s2"><b>タイムテーブル読込</b></span></p>
-<p class="p14"><span class="s2"><b>入場料を追加・編集</b></span></p>
-<p class="p14"><span class="s2"><b>到着状況だけリセット</b></span></p>
-<p class="p14"><span class="s2"><b>入場料カウントだけリセット</b></span></p>
-<p class="p14"><span class="s2"><b>イベントを複製</b></span></p>
-<p class="p17"><span class="s2"><b>イベント全削除</b></span></p>
-<p class="p13"><span class="s2"><b>閉じる</b></span></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>イベントを複製</b></span></h3>
-<p class="p6"><span class="s1">新しいイベント</span><span class="s8">ID</span></p>
-<p class="p6"><span class="s1">新しいイベント名</span></p>
-<p class="p12"><span class="s1">演者・人数・タイムテーブルをコピーして、到着状況は</span><span class="s8">0</span><span class="s1">に戻します。</span></p>
-<p class="p13"><span class="s2"><b>キャンセル</b></span></p>
-<p class="p8"><span class="s2"><b>複製する</b></span></p>
-<p class="p15"><span class="s2"></span><br></p>
-<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>タイムテーブル読込</b></span></h3>
-<p class="p12"><span class="s1">タイムテーブル画像から文字を読み取り、演者候補を抽出します。読み取り後、不要な行を消して保存してください。</span></p>
-<p class="p18"><span class="s2"></span><br></p>
-<p class="p8"><span class="s2"><b>画像から読み取り</b></span></p>
-<p class="p6"><span class="s1">読み取り結果・演者候補</span></p>
-<p class="p2"><span class="s2"></span><br></p>
-<p class="p19"><span class="s10">✏️</span><span class="s11"> </span><span class="s4">修正のヒント：</span></p>
-<p class="p19"><span class="s4">・名前の誤字は直接編集</span></p>
-<p class="p19"><span class="s4">・不要な行は削除</span></p>
-<p class="p19"><span class="s4">・形式：</span><span class="s12">時間,名前,人数</span><span class="s4">（時間なしも</span><span class="s11">OK</span><span class="s4">）</span></p>
-<p class="p20"><span class="s2">・</span><span class="s13">B2B</span><span class="s2">は人数を</span><span class="s13">2</span><span class="s2">に</span><span class="s13"><span class="Apple-converted-space"> </span></span></p>
-<p class="p21"><span class="s2"></span><br></p>
-<p class="p13"><span class="s2"><b>閉じる</b></span></p>
-<p class="p8"><span class="s2"><b>演者に反映</b></span></p>
-<p class="p15"><span class="s2"></span><br></p>
+<div class="app">
+  <div class="top">
+    <div class="header">
+      <div class="titleRow">
+        <div><div class="title" id="eventTitle">エントランス屋さん太郎</div><div class="eventId" id="eventIdLabel"></div></div>
+        <div class="topActions"><button class="shareBtn" id="shareBtn">共有URL</button><button class="gearBtn" id="settingsBtn" aria-label="設定">⚙️</button></div>
+      </div>
+      <div class="miniStatus">
+        <span>▶ <strong id="nowName">-</strong></span>
+        <span>次 <strong id="nextName">-</strong></span>
+      </div>
+    </div>
+    
+    <div class="feeBar">
+      <div class="feeHead"><span>入場料カウント</span></div>
+      <div class="feeList" id="feeList"></div>
+    </div>
+    <div class="sectionTitle">演者チェック</div>
+    <div class="controls">
+      <input class="search" id="searchInput" placeholder="演者検索" />
+      <div class="tabs"><button class="tab active" data-filter="all">全員</button><button class="tab" data-filter="notyet">未到着</button></div>
+      <div class="performerCount"><span>演者人数</span><b id="peopleStat">0/0</b></div>
+    </div>
+  </div>
+  <div class="list" id="list"></div>
+</div>
+
+<dialog id="eventDialog"><h3>イベント設定</h3><div class="formGrid"><label>イベント名<input id="titleInput" /></label><label>イベントID<input id="eventInput" /></label><div class="small">イベントIDを変えると別イベントになります。例：soul-jamaica-2026</div></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveEventBtn">保存</button></div></dialog>
+<dialog id="feeDialog"><h3>入場料設定</h3><div class="small">料金名・金額・ドリンク枚数を入力。金額は500円刻み。例：通常 ¥1000 / 1D、ディスカウント ¥500 / 1D、ゲスト ¥0 / 0D</div><div class="feeRows" id="feeRows"></div><button class="addFeeBtn" id="addFeeRowBtn" type="button">＋ 料金を追加</button><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveFeeBtn">保存</button></div><div class="error" id="feeError"></div></dialog>
+<dialog id="artistsDialog"><h3>演者編集</h3><div class="small">1行に「時間,演者名,人数,メモ」。時間なしでもOK。例：20:30,OSAGARI,2,もう1人後入り</div><textarea id="artistsText"></textarea><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveArtistsBtn">保存</button></div><div class="error" id="artistsError"></div></dialog>
+
+<dialog id="singleArtistDialog"><h3>演者を修正</h3><div class="formGrid"><input type="hidden" id="singleArtistId" /><label>演者名<input id="singleNameInput" /></label><label>開始時間<input id="singleTimeInput" placeholder="例：20:30" /></label><label>人数<input id="singleTotalInput" type="number" min="1" /></label><label>到着人数<input id="singleArrivedInput" type="number" min="0" /></label><label>メモ<input id="singleMemoInput" placeholder="例：もう1人後入り" /></label></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button class="dangerBtn" id="deleteSingleArtistBtn">削除</button><button id="saveSingleArtistBtn">保存</button></div><div class="error" id="singleArtistError"></div></dialog>
+<dialog id="settingsDialog"><h3>設定</h3><div class="small">イベントID：<span id="settingsEventId"></span></div><div class="settingsList"><button id="openEventSettingsBtn">イベント設定</button><button id="openFlyerBtn">フライヤー読込</button><button id="addFeeFromSettingsBtn">入場料を追加・編集</button><button id="resetArrivalsBtn">到着状況だけリセット</button><button id="resetSalesBtn">入場料カウントだけリセット</button><button id="duplicateEventBtn">イベントを複製</button><button class="dangerAction" id="deleteEventBtn">イベント全削除</button></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button></div></dialog>
+<dialog id="duplicateDialog"><h3>イベントを複製</h3><div class="formGrid"><label>新しいイベントID<input id="duplicateIdInput" placeholder="例：soul-jamaica-vol2" /></label><label>新しいイベント名<input id="duplicateTitleInput" placeholder="例：SOUL JAMAICA Vol.2" /></label><div class="small">演者・人数・タイムテーブルをコピーして、到着状況は0に戻します。</div></div><div class="dialogBtns"><button class="cancel" data-close>キャンセル</button><button id="saveDuplicateBtn">複製する</button></div><div class="error" id="duplicateError"></div></dialog>
+
+<dialog id="flyerDialog"><h3>フライヤー読込</h3><div class="small">フライヤー画像から文字を読み取り、演者候補を抽出します。読み取り後、不要な行を消して保存してください。</div><div class="formGrid"><input type="file" id="flyerInput" accept="image/*" /><button id="runOcrBtn" style="border:0;border-radius:14px;padding:12px;font-weight:800;background:var(--accent);color:#06101f">画像から読み取り</button><label>読み取り結果・演者候補<textarea id="ocrText" placeholder="例：
+18:30,PINO,1
+20:00,PUNCH,1
+20:30,OSAGARI,2"></textarea></label></div><div class="small" id="ocrStatus"></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveOcrBtn">演者に反映</button></div><div class="error" id="ocrError"></div></dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getDatabase, ref, onValue, set, update, remove } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD2LqFfdrx-4qi3IBZE194d8RLw8SbFHqc",
+  authDomain: "artist-check-ee7e1.firebaseapp.com",
+  projectId: "artist-check-ee7e1",
+  storageBucket: "artist-check-ee7e1.firebasestorage.app",
+  messagingSenderId: "231452052216",
+  appId: "1:231452052216:web:d3c4272c9009d00416490d",
+  measurementId: "G-GM6ZSKWEDP",
+  databaseURL: "https://artist-check-ee7e1-default-rtdb.asia-southeast1.firebasedatabase.app"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const qs = new URLSearchParams(location.search);
+let eventId = sanitizeEventId(qs.get('event') || localStorage.getItem('lastEventId') || 'demo-event');
+let data = null;
+let filter = 'all';
+
+const defaultData = {
+  title: 'イベント名未設定',
+  artists: [],
+  prices: [],
+  updatedAt: Date.now()
+};
+
+function eventRef(){ return ref(db, `events/${eventId}`); }
+function eventBaseRef(id){ return ref(db, `events/${id}`); }
+function sanitizeEventId(s){ return String(s || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g,'-').replace(/-+/g,'-').slice(0,60) || 'demo-event'; }
+function uid(name, i){ return (name || 'artist').toLowerCase().replace(/[^a-z0-9ぁ-んァ-ン一-龥ー_-]/g,'-').slice(0,30) + '-' + i; }
+
+function connect(){
+  localStorage.setItem('lastEventId', eventId);
+  document.getElementById('eventIdLabel').textContent = `event: ${eventId}`;
+  history.replaceState(null,'', `${location.pathname}?event=${encodeURIComponent(eventId)}`);
+  onValue(eventRef(), snap => {
+    if(!snap.exists()) set(eventRef(), defaultData);
+    else { data = snap.val(); render(); }
+  });
+}
+
+function render(){
+  if(!data) return;
+  const artists = Array.isArray(data.artists) ? data.artists : [];
+  document.getElementById('eventTitle').textContent = data.title || '演者受付';
+  document.getElementById('eventIdLabel').textContent = `event: ${eventId}`;
+  const totalPeople = artists.reduce((s,a)=>s+Number(a.total||1),0);
+  const arrivedPeople = artists.reduce((s,a)=>s+Math.min(Number(a.arrived||0),Number(a.total||1)),0);
+  const prices = Array.isArray(data.prices) ? data.prices : [];
+  peopleStat.textContent = `${arrivedPeople}/${totalPeople}`;
+  renderFees(prices);
+  setNow(artists);
+  const q = searchInput.value.trim().toLowerCase();
+  const shown = artists.filter(a => {
+    const hit = !q || `${a.name} ${a.memo||''}`.toLowerCase().includes(q);
+    const okFilter = filter === 'all' || Number(a.arrived||0) < Number(a.total||1);
+    return hit && okFilter;
+  }).sort((a,b)=>{
+    const afull = Number(a.arrived||0) >= Number(a.total||1);
+    const bfull = Number(b.arrived||0) >= Number(b.total||1);
+    if(afull !== bfull) return afull ? 1 : -1;
+    return (a.time||'99:99').localeCompare(b.time||'99:99');
+  });
+  list.innerHTML = shown.map(a => cardHtml(a)).join('') || '<div class="small">表示する演者がいません</div>';
+}
+function cardHtml(a){
+  const arrived = Number(a.arrived||0), total = Number(a.total||1); const full = arrived >= total;
+  return `<div class="card ${full?'arrived full':''}" data-id="${a.id}"><div><div class="name">${escapeHtml(a.name)}</div><div class="time">${a.time ? escapeHtml(a.time) : '時間未設定'}</div>${a.memo?`<div class="memo">${escapeHtml(a.memo)}</div>`:''}</div><div class="count"><button class="countBtn" data-delta="-1">−</button><div class="num">${arrived}/${total}</div><button class="countBtn" data-delta="1">＋</button></div></div>`;
+}
+function renderFees(prices){
+  if(!prices.length){
+    feeList.innerHTML = '<div class="small">料金未設定。⚙️ → 入場料を追加・編集 から登録</div>';
+    return;
+  }
+  const totalCount = prices.reduce((s,p)=>s+Number(p.count||0),0);
+  const totalRevenue = prices.reduce((s,p)=>s+(Number(p.amount||0)*Number(p.count||0)),0);
+  const totalDrinks = prices.reduce((s,p)=>s+(Number(p.drinks||0)*Number(p.count||0)),0);
+  feeList.innerHTML = prices.map(p => {
+    const count = Number(p.count||0);
+    const amount = Number(p.amount||0);
+    const drinks = Number(p.drinks||0);
+    const sub = amount * count;
+    return `<div class="feeItem" data-id="${escapeHtml(p.id)}"><div><div class="feeName">${escapeHtml(p.name)}</div><div class="feeMeta">${yen(amount)} / ${drinks}D</div><div class="feeSub">小計 ${yen(sub)}</div></div><div class="feeCount"><button data-fee-delta="-1">−</button><b>${count}</b><button data-fee-delta="1">＋</button></div></div>`;
+  }).join('') + `<div class="feeSummary"><span>合計 ${totalCount}名 / ${totalDrinks}D</span><b>${yen(totalRevenue)}</b></div>`;
+}
+function yen(n){ return '¥' + Number(n||0).toLocaleString('ja-JP'); }
+function parseFeeText(text){
+  return text.split('\n').map(x=>x.trim()).filter(Boolean).map((line,i)=>{
+    const p=line.split(',').map(v=>v.trim());
+    const name=p[0];
+    const amount=Number(String(p[1]||'0').replace(/[^0-9.-]/g,''))||0;
+    const drinks=Math.max(0, Number(String(p[2]||'0').replace(/[^0-9.-]/g,''))||0);
+    const count=Math.max(0, Number(p[3]||0)||0);
+    if(!name) throw new Error(`${i+1}行目の料金名が空です`);
+    return {id: uid(name,i), name, amount, drinks, count};
+  });
+}
+
+function renderFeeRows(){
+  const prices = Array.isArray(data?.prices) ? data.prices : [];
+  const rows = prices.length ? prices : [{name:'通常', amount:1000, drinks:1, count:0}];
+  feeRows.innerHTML = rows.map((p,i)=>feeRowHtml(p,i)).join('');
+}
+function feeRowHtml(p,i){
+  return `<div class="feeRow" data-fee-row="${i}">
+    <label>料金名<input class="feeNameInput" value="${escapeHtml(p.name||'')}" placeholder="通常"></label>
+    <label>金額<input class="feeAmountInput" type="number" min="0" step="500" value="${Number(p.amount||0)}" placeholder="1000"></label>
+    <label>D<input class="feeDrinkInput" type="number" min="0" value="${Number(p.drinks||0)}" placeholder="1"></label>
+    <button type="button" class="delFeeRow">×</button>
+  </div>`;
+}
+function readFeeRows(){
+  return [...feeRows.querySelectorAll('.feeRow')].map((row,i)=>{
+    const old = (Array.isArray(data?.prices) ? data.prices : [])[i] || {};
+    const name = row.querySelector('.feeNameInput').value.trim();
+    const rawAmount = Math.max(0, Number(row.querySelector('.feeAmountInput').value)||0);
+    const amount = Math.round(rawAmount / 500) * 500;
+    const drinks = Math.max(0, Number(row.querySelector('.feeDrinkInput').value)||0);
+    if(!name) throw new Error(`${i+1}行目の料金名が空です`);
+    return { id: old.id || uid(name,i), name, amount, drinks, count: Number(old.count||0) };
+  });
+}
+
+function setNow(artists){
+  const timed = artists.filter(a=>/^\d{1,2}:\d{2}$/.test(a.time||'')).sort((a,b)=>a.time.localeCompare(b.time));
+  if(!timed.length){ nowName.textContent='-'; nextName.textContent='-'; return; }
+  const d = new Date(); const m = d.getHours()*60+d.getMinutes();
+  let now = null, next = null;
+  for(let i=0;i<timed.length;i++){ const tm = toMin(timed[i].time); if(tm<=m) now=timed[i]; if(tm>m){ next=timed[i]; break; } }
+  nowName.textContent = now ? now.name : '-';
+  nextName.textContent = next ? `${next.time} ${next.name}` : '-';
+}
+function toMin(t){ const [h,m]=t.split(':').map(Number); return h*60+m; }
+function escapeHtml(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+list.addEventListener('click', e => {
+  const btn = e.target.closest('.countBtn'); if(!btn || !data) return;
+  const card = btn.closest('.card'); const id = card.dataset.id; const delta = Number(btn.dataset.delta);
+  const artists = [...data.artists]; const i = artists.findIndex(a=>a.id===id); if(i<0) return;
+  const total = Number(artists[i].total || 1); const now = Number(artists[i].arrived || 0);
+  artists[i] = {...artists[i], arrived: Math.max(0, Math.min(total, now + delta)), arrivedAt: delta>0 ? Date.now() : artists[i].arrivedAt};
+  update(eventRef(), { artists, updatedAt: Date.now() });
+});
+
+feeList.addEventListener('click', async e=>{
+  const btn=e.target.closest('[data-fee-delta]');
+  if(!btn || !data) return;
+  const item=btn.closest('.feeItem');
+  const id=item?.dataset.id;
+  const delta=Number(btn.dataset.feeDelta);
+  const prices=[...(Array.isArray(data.prices)?data.prices:[])];
+  const i=prices.findIndex(p=>p.id===id);
+  if(i<0) return;
+  const count=Math.max(0, Number(prices[i].count||0)+delta);
+  prices[i]={...prices[i], count};
+  await update(eventRef(), {prices, updatedAt:Date.now()});
+});
+let feeLongPressTimer=null;
+function startFeeLongPress(e){
+  const item=e.target.closest('.feeItem');
+  if(!item || e.target.closest('[data-fee-delta]')) return;
+  clearTimeout(feeLongPressTimer);
+  feeLongPressTimer=setTimeout(()=>openFeeDialog(), 550);
+}
+function cancelFeeLongPress(){ clearTimeout(feeLongPressTimer); }
+feeList.addEventListener('pointerdown', startFeeLongPress);
+feeList.addEventListener('pointerup', cancelFeeLongPress);
+feeList.addEventListener('pointercancel', cancelFeeLongPress);
+feeList.addEventListener('pointerleave', cancelFeeLongPress);
+feeList.addEventListener('contextmenu', e=>{ const item=e.target.closest('.feeItem'); if(item && !e.target.closest('[data-fee-delta]')){ e.preventDefault(); openFeeDialog(); } });
+
+let longPressTimer=null;
+let longPressStarted=false;
+
+function startLongPress(e){
+  const card=e.target.closest('.card');
+  if(!card || e.target.closest('.countBtn')) return;
+  longPressStarted=false;
+  clearTimeout(longPressTimer);
+  longPressTimer=setTimeout(()=>{
+    longPressStarted=true;
+    openSingleArtistEditor(card.dataset.id);
+  }, 550);
+}
+function cancelLongPress(){ clearTimeout(longPressTimer); }
+list.addEventListener('pointerdown', startLongPress);
+list.addEventListener('pointerup', cancelLongPress);
+list.addEventListener('pointercancel', cancelLongPress);
+list.addEventListener('pointerleave', cancelLongPress);
+list.addEventListener('contextmenu', e => {
+  const card=e.target.closest('.card');
+  if(card && !e.target.closest('.countBtn')){ e.preventDefault(); openSingleArtistEditor(card.dataset.id); }
+});
+
+function openSingleArtistEditor(id){
+  if(!data) return;
+  const a=(data.artists||[]).find(x=>x.id===id);
+  if(!a) return;
+  singleArtistError.textContent='';
+  singleArtistId.value=a.id;
+  singleNameInput.value=a.name||'';
+  singleTimeInput.value=a.time||'';
+  singleTotalInput.value=Number(a.total||1);
+  singleArrivedInput.value=Number(a.arrived||0);
+  singleMemoInput.value=a.memo||'';
+  singleArtistDialog.showModal();
+}
+
+saveSingleArtistBtn.onclick=async()=>{
+  try{
+    if(!data) return;
+    const id=singleArtistId.value;
+    const artists=[...(data.artists||[])];
+    const i=artists.findIndex(a=>a.id===id);
+    if(i<0) throw new Error('対象の演者が見つかりません');
+    const name=singleNameInput.value.trim();
+    if(!name) throw new Error('演者名を入力してください');
+    const time=singleTimeInput.value.trim();
+    if(time && !/^\d{1,2}:\d{2}$/.test(time)) throw new Error('時間は 20:30 の形式で入力してください');
+    const total=Math.max(1, Number(singleTotalInput.value)||1);
+    const arrived=Math.max(0, Math.min(total, Number(singleArrivedInput.value)||0));
+    artists[i]={...artists[i], name, time, total, arrived, memo:singleMemoInput.value.trim()};
+    await update(eventRef(), {artists, updatedAt:Date.now()});
+    singleArtistDialog.close();
+  }catch(err){ singleArtistError.textContent=err.message; }
+};
+
+deleteSingleArtistBtn.onclick=async()=>{
+  if(!data) return;
+  const id=singleArtistId.value;
+  const a=(data.artists||[]).find(x=>x.id===id);
+  if(!a) return;
+  if(!confirm(`「${a.name}」を削除しますか？`)) return;
+  const artists=(data.artists||[]).filter(x=>x.id!==id);
+  await update(eventRef(), {artists, updatedAt:Date.now()});
+  singleArtistDialog.close();
+};
+
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render();}));
+searchInput.addEventListener('input', render);
+shareBtn.onclick = async()=>{ try{ await navigator.clipboard.writeText(location.href); shareBtn.textContent='コピー済み'; setTimeout(()=>shareBtn.textContent='共有URL',1200);}catch(e){ prompt('共有URL', location.href); } };
+function openEventDialog(){ titleInput.value=data?.title||''; eventInput.value=eventId; eventDialog.showModal(); }
+function openFeeDialog(){ feeError.textContent=''; renderFeeRows(); feeDialog.showModal(); }
+function openFlyerDialog(){ ocrError.textContent=''; ocrStatus.textContent=''; ocrText.value=''; flyerInput.value=''; flyerDialog.showModal(); }
+saveFeeBtn.onclick=async()=>{ try{ const prices=readFeeRows(); await update(eventRef(), {prices, updatedAt:Date.now()}); feeDialog.close(); }catch(err){ feeError.textContent=err.message; } };
+addFeeRowBtn.onclick=()=>{ const i=feeRows.querySelectorAll('.feeRow').length; feeRows.insertAdjacentHTML('beforeend', feeRowHtml({name:'',amount:0,drinks:1,count:0}, i)); };
+feeRows.addEventListener('click', e=>{ const b=e.target.closest('.delFeeRow'); if(!b) return; b.closest('.feeRow').remove(); if(!feeRows.querySelector('.feeRow')) addFeeRowBtn.click(); });
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
+saveEventBtn.onclick=()=>{ const newId=sanitizeEventId(eventInput.value); if(titleInput.value.trim()) update(eventRef(), {title:titleInput.value.trim(), updatedAt:Date.now()}); eventDialog.close(); if(newId!==eventId){ eventId=newId; location.href=`${location.pathname}?event=${encodeURIComponent(eventId)}`; } };
+saveArtistsBtn.onclick=()=>{ try{ const artists = parseArtistText(artistsText.value); update(eventRef(), {artists, updatedAt:Date.now()}); artistsDialog.close(); }catch(err){ artistsError.textContent=err.message; } };
+
+settingsBtn.onclick=()=>{ settingsEventId.textContent=eventId; settingsDialog.showModal(); };
+openEventSettingsBtn.onclick=()=>{ settingsDialog.close(); openEventDialog(); };
+openFlyerBtn.onclick=()=>{ settingsDialog.close(); openFlyerDialog(); };
+addFeeFromSettingsBtn.onclick=()=>{ settingsDialog.close(); openFeeDialog(); };
+resetArrivalsBtn.onclick=async()=>{
+  if(!data) return;
+  if(!confirm('全演者の到着状況を0に戻しますか？\n演者リスト・人数・時間は残ります。')) return;
+  const artists=(data.artists||[]).map(a=>({...a, arrived:0, arrivedAt:null}));
+  await update(eventRef(), {artists, updatedAt:Date.now()});
+  settingsDialog.close();
+};
+resetSalesBtn.onclick=async()=>{
+  if(!data) return;
+  if(!confirm('入場料カウントをすべて0に戻しますか？\n料金設定は残ります。')) return;
+  const prices=(Array.isArray(data.prices)?data.prices:[]).map(p=>({...p, count:0}));
+  await update(eventRef(), {prices, updatedAt:Date.now()});
+  settingsDialog.close();
+};
+deleteEventBtn.onclick=async()=>{
+  const ok=confirm(`イベント「${data?.title||eventId}」の全データを削除します。\nこの操作は戻せません。よろしいですか？`);
+  if(!ok) return;
+  const ok2=confirm('本当に削除しますか？');
+  if(!ok2) return;
+  await remove(eventRef());
+  settingsDialog.close();
+  alert('削除しました。次に同じURLを開くと初期データが作られます。');
+};
+duplicateEventBtn.onclick=()=>{
+  duplicateError.textContent='';
+  duplicateIdInput.value=`${eventId}-copy`;
+  duplicateTitleInput.value=data?.title ? `${data.title} コピー` : '';
+  settingsDialog.close();
+  duplicateDialog.showModal();
+};
+saveDuplicateBtn.onclick=async()=>{
+  try{
+    const newId=sanitizeEventId(duplicateIdInput.value);
+    if(!newId) throw new Error('イベントIDを入力してください');
+    if(newId===eventId) throw new Error('今と違うイベントIDにしてください');
+    const copy={...data, title: duplicateTitleInput.value.trim() || data?.title || '演者受付', artists:(data?.artists||[]).map(a=>({...a, arrived:0, arrivedAt:null})), prices:(Array.isArray(data?.prices)?data.prices:[]).map(p=>({...p, count:0})), updatedAt:Date.now(), copiedFrom:eventId};
+    await set(eventBaseRef(newId), copy);
+    duplicateDialog.close();
+    location.href=`${location.pathname}?event=${encodeURIComponent(newId)}`;
+  }catch(err){ duplicateError.textContent=err.message; }
+};
+
+
+runOcrBtn.onclick=async()=>{
+  try{
+    ocrError.textContent='';
+    const file=flyerInput.files && flyerInput.files[0];
+    if(!file) throw new Error('画像を選んでください');
+    ocrStatus.textContent='読み取り中... 少し時間がかかります';
+    const imagesForOcr=await preprocessImageVariantsForOcr(file);
+    const texts=[];
+    for(let i=0;i<imagesForOcr.length;i++){
+      ocrStatus.textContent=`読み取り中... 画像補正 ${i+1}/${imagesForOcr.length}`;
+      const result=await Tesseract.recognize(imagesForOcr[i], 'jpn+eng', {
+        tessedit_pageseg_mode: i===0 ? '6' : '11',
+        preserve_interword_spaces: '1',
+        logger:m=>{ if(m.status) ocrStatus.textContent=`読み取り中... ${i+1}/${imagesForOcr.length} ${m.status} ${m.progress?Math.round(m.progress*100)+'%':''}`; }
+      });
+      texts.push(result.data.text || '');
+    }
+    const raw=texts.join('\n');
+    const extracted=extractArtistLines(raw);
+    ocrText.value=extracted || raw;
+    ocrStatus.textContent='読み取り完了。時間つきタイムテーブルを優先して整形しました。変な行だけ直してください。';
+  }catch(err){ ocrError.textContent=err.message || String(err); ocrStatus.textContent=''; }
+};
+saveOcrBtn.onclick=()=>{
+  try{
+    const artists=parseArtistText(ocrText.value);
+    update(eventRef(), {artists, updatedAt:Date.now()});
+    flyerDialog.close();
+  }catch(err){ ocrError.textContent=err.message; }
+};
+function extractArtistLines(raw){
+  const normalized = normalizeOcrText(raw);
+  const rows = normalized.split('\n').map(x=>x.trim()).filter(Boolean);
+  const picked=[];
+  let pendingTime='';
+
+  for(let line of rows){
+    line = cleanOcrLine(line);
+    if(!line) continue;
+
+    const range = findTimeRange(line);
+    if(range){
+      let name = line.slice(range.endIndex).trim();
+      name = cleanArtistName(name);
+      if(!name){
+        pendingTime = range.start;
+        continue;
+      }
+      if(isProbablyNotArtist(name)) continue;
+      picked.push(`${range.start},${name},1`);
+      pendingTime='';
+      continue;
+    }
+
+    const single = findSingleTime(line);
+    if(single){
+      let name = line.slice(single.endIndex).trim();
+      name = cleanArtistName(name);
+      if(!name){
+        pendingTime = single.time;
+        continue;
+      }
+      if(isProbablyNotArtist(name)) continue;
+      picked.push(`${single.time},${name},1`);
+      pendingTime='';
+      continue;
+    }
+
+    // 「20:05-20:25」だけが1行、その下に「SLAUGHT3R.EXE」みたいなOCR対策
+    if(pendingTime){
+      const name = cleanArtistName(line);
+      if(name && !isProbablyNotArtist(name)) picked.push(`${pendingTime},${name},1`);
+      pendingTime='';
+      continue;
+    }
+
+    // フライヤーの出演者一覧だけの場合。短すぎる数字だけの行は除外。
+    const name = cleanArtistName(line);
+    if(name && !isProbablyNotArtist(name)) picked.push(`${name},1`);
+  }
+
+  return uniqueByNameAndTime(picked).join('\n');
+}
+
+function normalizeOcrText(raw){
+  return String(raw||'')
+    .replace(/[０-９]/g, ch => String.fromCharCode(ch.charCodeAt(0)-0xFEE0))
+    .replace(/[：﹕]/g, ':')
+    .replace(/[−–—〜~～]/g, '-')
+    .replace(/[，、]/g, ',')
+    .replace(/([0-2]?\d)\s*[\.．]\s*([0-5]\d)/g, '$1:$2')
+    .replace(/([0-2]?\d)\s*;\s*([0-5]\d)/g, '$1:$2')
+    .replace(/([0-2]?\d)\s+([0-5]\d)\s*-/g, '$1:$2-')
+    .replace(/([0-2]?\d)[: ]([0-5]\d)\s*[lI|]\s*([0-2]?\d)[: ]([0-5]\d)/g, '$1:$2-$3:$4')
+    .replace(/-\s*([0-2]?\d)\s+([0-5]\d)/g, '-$1:$2')
+    .replace(/\r/g,'\n');
+}
+
+function cleanOcrLine(line){
+  return String(line||'')
+    .replace(/[|｜•・■□●○◆◇]/g,' ')
+    .replace(/^[\s:：,，.．。]+|[\s:：,，.．。]+$/g,'')
+    .replace(/\s{2,}/g,' ')
+    .trim();
+}
+
+function findTimeRange(line){
+  // 17:00-17:20 NAME / 17:00 ー 17:20 NAME / 17.00-17.20 NAME
+  const m = line.match(/(^|\s)([0-2]?\d)\s*[:.]\s*([0-5]\d)\s*-\s*([0-2]?\d)\s*[:.]\s*([0-5]\d)/);
+  if(!m) return null;
+  return { start: `${m[2].padStart(2,'0')}:${m[3]}`, end: `${m[4].padStart(2,'0')}:${m[5]}`, endIndex: m.index + m[0].length };
+}
+
+function findSingleTime(line){
+  const m = line.match(/(^|\s)([0-2]?\d)\s*[:.]\s*([0-5]\d)/);
+  if(!m) return null;
+  return { time: `${m[2].padStart(2,'0')}:${m[3]}`, endIndex: m.index + m[0].length };
+}
+
+function cleanArtistName(name){
+  let n = String(name||'').trim();
+  n = n.replace(/^(DJ|LIVE|GUEST|REGULAR|ACT|ARTIST|出演者|出演|DJs?)[:：\s-]*/i,'').trim();
+  n = n.replace(/\s+/g,' ').trim();
+  // OCRで末尾に残りがちな記号だけ削る。B2Bやドット入り名は残す。
+  n = n.replace(/^[\-–—:：,，.．。\s]+|[\-–—:：,，。\s]+$/g,'').trim();
+  return n;
+}
+
+function isProbablyNotArtist(name){
+  const n = String(name||'').trim();
+  if(!n) return true;
+  if(n.length < 2 || n.length > 50) return true;
+  // 数字だけのDJ名（例：3310）もあるので除外しない
+  if(/^(open|start|close|door|adv|予約|料金|charge|entrance|ticket|date|場所|会場|address|instagram|twitter|x:|¥|円)$/i.test(n)) return true;
+  if(/(https?:|www\.|@|gmail|email|tel|〒)/i.test(n)) return true;
+  return false;
+}
+
+function uniqueByNameAndTime(lines){
+  const seen=new Set();
+  const out=[];
+  for(const line of lines){
+    const parts=line.split(',').map(x=>x.trim());
+    const key=(/^\d{1,2}:\d{2}$/.test(parts[0]) ? `${parts[0]}|${parts[1]}` : `|${parts[0]}`).toLowerCase();
+    if(seen.has(key)) continue;
+    seen.add(key);
+    out.push(line);
+  }
+  return out;
+}
+
+async function preprocessImageVariantsForOcr(file){
+  const img=await loadImageFromFile(file);
+  const baseScale=Math.min(4, Math.max(2, 2200 / Math.max(img.width, img.height)));
+  return [
+    makeOcrCanvas(img, baseScale, 'contrast'),
+    makeOcrCanvas(img, baseScale, 'threshold'),
+    makeOcrCanvas(img, baseScale, 'gray')
+  ];
+}
+
+function makeOcrCanvas(img, scale, mode){
+  const canvas=document.createElement('canvas');
+  canvas.width=Math.round(img.width*scale);
+  canvas.height=Math.round(img.height*scale);
+  const ctx=canvas.getContext('2d', {willReadFrequently:true});
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  const imageData=ctx.getImageData(0,0,canvas.width,canvas.height);
+  const d=imageData.data;
+  for(let i=0;i<d.length;i+=4){
+    let gray=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];
+    if(mode==='threshold'){
+      const v=gray>165?255:0; d[i]=d[i+1]=d[i+2]=v;
+    }else if(mode==='contrast'){
+      gray=(gray-128)*1.8+128;
+      gray=Math.max(0,Math.min(255,gray));
+      const v=gray>235?255:(gray<70?0:gray);
+      d[i]=d[i+1]=d[i+2]=v;
+    }else{
+      d[i]=d[i+1]=d[i+2]=gray;
+    }
+  }
+  ctx.putImageData(imageData,0,0);
+  return canvas;
+}
+
+function loadImageFromFile(file){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>resolve(img);
+    img.onerror=reject;
+    img.src=URL.createObjectURL(file);
+  });
+}
+
+function parseArtistText(text){
+  return text.split('\n').map(x=>x.trim()).filter(Boolean).map((line,i)=>{
+    const p=line.split(',').map(v=>v.trim()); let time='',name='',total=1,memo='';
+    if(/^\d{1,2}:\d{2}$/.test(p[0])){ [time,name,total,memo]=p; } else { [name,total,memo]=p; }
+    if(!name) throw new Error(`${i+1}行目の演者名が空です`);
+    return {id:uid(name,i), time, name, total:Math.max(1,Number(total)||1), arrived:0, memo:memo||''};
+  });
+}
+
+connect(); setInterval(()=>data&&render(),30000);
+</script>
 </body>
 </html>
