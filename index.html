@@ -1,234 +1,120 @@
-<!doctype html>
-<html lang="ja">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>演者受付チェック</title>
-  <style>
-    :root{--bg:#0e1117;--panel:#171b24;--panel2:#202635;--text:#f5f7fb;--muted:#9aa4b2;--line:#2d3445;--accent:#6ea8ff;--ok:#42d392;--warn:#ffcf5a;--danger:#ff6b6b;}
-    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;} button,input,textarea{font:inherit} .app{max-width:560px;margin:0 auto;min-height:100svh;padding:14px 12px 80px}.top{position:sticky;top:0;z-index:5;background:linear-gradient(180deg,var(--bg) 85%,rgba(14,17,23,0));padding-bottom:8px}.header{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px}.titleRow{display:flex;gap:10px;align-items:center;justify-content:space-between}.title{font-size:22px;font-weight:800;letter-spacing:.02em}.eventId{font-size:11px;color:var(--muted);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topActions{display:flex;gap:6px;align-items:center}.shareBtn,.gearBtn{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:999px;padding:8px 10px;font-size:12px}.gearBtn{width:38px;height:36px;padding:0;font-size:18px}.stats{display:flex;gap:8px;margin-top:10px}.stat{flex:1;background:#10141d;border:1px solid var(--line);border-radius:14px;padding:8px 9px}.stat b{font-size:18px}.stat span{font-size:11px;color:var(--muted);margin-left:4px}.now{margin-top:8px;border:1px solid var(--line);background:#10141d;border-radius:14px;padding:8px 10px;font-size:13px;display:flex;justify-content:space-between;gap:8px}.now strong{color:var(--accent)}.controls{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}.search{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:12px}.tabs{display:flex;gap:6px}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:14px;padding:0 11px}.tab.active{background:var(--accent);color:#06101f;border-color:var(--accent);font-weight:700}.list{display:flex;flex-direction:column;gap:9px;margin-top:12px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.card.arrived{opacity:.72}.name{font-size:18px;font-weight:800}.time{font-size:12px;color:var(--muted);margin-top:3px}.memo{font-size:12px;color:var(--warn);margin-top:4px}.count{display:flex;align-items:center;gap:8px}.countBtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:22px}.num{min-width:54px;text-align:center;font-size:18px;font-weight:800}.full .num{color:var(--ok)}.tools{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(560px,calc(100% - 24px));display:flex;gap:8px;z-index:10}.tools button{flex:1;border:0;border-radius:16px;padding:13px 10px;font-weight:800;color:#06101f;background:var(--accent)}.tools button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}dialog{width:min(560px,calc(100% - 24px));border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--text);padding:16px}dialog::backdrop{background:rgba(0,0,0,.65)}.formGrid{display:grid;gap:10px}label{font-size:12px;color:var(--muted)}input,textarea{width:100%;border:1px solid var(--line);background:#10141d;color:var(--text);border-radius:12px;padding:12px}textarea{min-height:160px}.row{display:grid;grid-template-columns:1fr 90px 100px;gap:8px}.dialogBtns{display:flex;gap:8px;margin-top:12px}.dialogBtns button{flex:1;border:0;border-radius:14px;padding:12px;font-weight:800;background:var(--accent);color:#06101f}.dialogBtns button.cancel{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.dangerBtn{background:var(--danger)!important;color:#210606!important}.warnBtn{background:var(--warn)!important;color:#211900!important}.settingsList{display:grid;gap:10px;margin-top:10px}.settingsList button{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px;font-weight:800;background:var(--panel2);color:var(--text);text-align:left}.settingsList .dangerAction{border-color:rgba(255,107,107,.6);color:#ffb3b3}.small{font-size:12px;color:var(--muted);line-height:1.6}.error{color:var(--danger);font-size:13px;margin-top:8px}.hide{display:none!important}
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1671.6">
+  <style type="text/css">
+    body {background-color: #0d0e12}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 26.0px; font: 22.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 13.0px; font: 11.0px '.SF NS Text'; color: #8893a3; -webkit-text-stroke: #8893a3; min-height: 13.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.SF NS Text'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #181c28}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 21.0px; font: 18.0px '.Apple Color Emoji UI'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #181c28}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.SF NS Text'; color: #8893a3; -webkit-text-stroke: #8893a3}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.SF NS Text'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #12151b; min-height: 15.0px}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #080d17; -webkit-text-stroke: #080d17; background-color: #5c94ff}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3; background-color: #12151b}
+    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 17.0px; font: 14.0px '.SF NS Text'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa}
+    p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3}
+    p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #181c28}
+    p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #181c28}
+    p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 16.0px; font: 13.0px '.SF NS Text'; color: #fc5258; -webkit-text-stroke: #fc5258; min-height: 16.0px}
+    p.p16 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #190608; -webkit-text-stroke: #190608; background-color: #fc5258}
+    p.p17 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.Hiragino Kaku Gothic Interface'; color: #fda2a4; -webkit-text-stroke: #fda2a4; background-color: #181c28}
+    p.p18 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 15.0px; font: 12.0px '.SF NS Text'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa; background-color: #0e1016; min-height: 15.0px}
+    p.p19 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 11.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3}
+    p.p20 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 18.0px; font: 11.0px '.Hiragino Kaku Gothic Interface'; color: #8893a3; -webkit-text-stroke: #8893a3; background-color: #0e1016}
+    p.p21 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 12.0px '.SF NS Text'; color: #8893a3; -webkit-text-stroke: #8893a3; min-height: 15.0px}
+    span.s1 {font-kerning: none; background-color: #12151b}
+    span.s2 {font-kerning: none}
+    span.s3 {font: 12.0px '.Hiragino Kaku Gothic Interface'; font-kerning: none}
+    span.s4 {font-kerning: none; background-color: #0e1016}
+    span.s5 {font: 13.0px 'Helvetica Neue'; font-kerning: none; color: #5c94ff; background-color: #0e1016; -webkit-text-stroke: 0px #5c94ff}
+    span.s6 {font: 12.0px '.Hiragino Kaku Gothic Interface'; font-kerning: none; background-color: #0e1016}
+    span.s7 {font: 14.0px 'Helvetica Neue'; font-kerning: none; background-color: #0e1016}
+    span.s8 {font: 12.0px '.SF NS Text'; font-kerning: none; background-color: #12151b}
+    span.s9 {font: 12.0px 'Helvetica Neue'; font-kerning: none}
+    span.s10 {font: 11.0px '.Apple Color Emoji UI'; font-kerning: none; background-color: #0e1016}
+    span.s11 {font: 11.0px '.SF NS Text'; font-kerning: none; background-color: #0e1016}
+    span.s12 {font: 11.0px 'Hiragino Sans'; font-kerning: none; color: #5c94ff; background-color: #0e1016; -webkit-text-stroke: 0px #5c94ff}
+    span.s13 {font: 11.0px '.SF NS Text'; font-kerning: none}
   </style>
 </head>
 <body>
-<div class="app">
-  <div class="top">
-    <div class="header">
-      <div class="titleRow">
-        <div><div class="title" id="eventTitle">演者受付</div><div class="eventId" id="eventIdLabel"></div></div>
-        <div class="topActions"><button class="shareBtn" id="shareBtn">共有URL</button><button class="gearBtn" id="settingsBtn" aria-label="設定">⚙️</button></div>
-      </div>
-      <div class="stats">
-        <div class="stat"><b id="groupStat">0/0</b><span>組</span></div>
-        <div class="stat"><b id="peopleStat">0/0</b><span>人</span></div>
-      </div>
-      <div class="now"><div>▶ 出演中：<strong id="nowName">-</strong></div><div>次：<strong id="nextName">-</strong></div></div>
-    </div>
-    <div class="controls">
-      <input class="search" id="searchInput" placeholder="検索" />
-      <div class="tabs"><button class="tab active" data-filter="all">全員</button><button class="tab" data-filter="notyet">未到着</button></div>
-    </div>
-  </div>
-  <div class="list" id="list"></div>
-</div>
-<div class="tools"><button class="secondary" id="editEventBtn">イベント設定</button><button class="secondary" id="flyerBtn">フライヤー読込</button><button id="editArtistsBtn">演者編集</button></div>
-
-<dialog id="eventDialog"><h3>イベント設定</h3><div class="formGrid"><label>イベント名<input id="titleInput" /></label><label>イベントID<input id="eventInput" /></label><div class="small">イベントIDを変えると別イベントになります。例：soul-jamaica-2026</div></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveEventBtn">保存</button></div></dialog>
-<dialog id="artistsDialog"><h3>演者編集</h3><div class="small">1行に「時間,演者名,人数,メモ」。時間なしでもOK。例：20:30,OSAGARI,2,もう1人後入り</div><textarea id="artistsText"></textarea><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveArtistsBtn">保存</button></div><div class="error" id="artistsError"></div></dialog>
-<dialog id="settingsDialog"><h3>設定</h3><div class="small">イベントID：<span id="settingsEventId"></span></div><div class="settingsList"><button id="resetArrivalsBtn">到着状況だけリセット</button><button id="duplicateEventBtn">イベントを複製</button><button class="dangerAction" id="deleteEventBtn">イベント全削除</button></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button></div></dialog>
-<dialog id="duplicateDialog"><h3>イベントを複製</h3><div class="formGrid"><label>新しいイベントID<input id="duplicateIdInput" placeholder="例：soul-jamaica-vol2" /></label><label>新しいイベント名<input id="duplicateTitleInput" placeholder="例：SOUL JAMAICA Vol.2" /></label><div class="small">演者・人数・タイムテーブルをコピーして、到着状況は0に戻します。</div></div><div class="dialogBtns"><button class="cancel" data-close>キャンセル</button><button id="saveDuplicateBtn">複製する</button></div><div class="error" id="duplicateError"></div></dialog>
-
-<dialog id="flyerDialog"><h3>フライヤー読込</h3><div class="small">フライヤー画像から文字を読み取り、演者候補を抽出します。読み取り後、不要な行を消して保存してください。</div><div class="formGrid"><input type="file" id="flyerInput" accept="image/*" /><button id="runOcrBtn" style="border:0;border-radius:14px;padding:12px;font-weight:800;background:var(--accent);color:#06101f">画像から読み取り</button><label>読み取り結果・演者候補<textarea id="ocrText" placeholder="例：
-18:30,PINO,1
-20:00,PUNCH,1
-20:30,OSAGARI,2"></textarea></label></div><div class="small" id="ocrStatus"></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveOcrBtn">演者に反映</button></div><div class="error" id="ocrError"></div></dialog>
-
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-import { getDatabase, ref, onValue, set, update, remove } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD2LqFfdrx-4qi3IBZE194d8RLw8SbFHqc",
-  authDomain: "artist-check-ee7e1.firebaseapp.com",
-  projectId: "artist-check-ee7e1",
-  storageBucket: "artist-check-ee7e1.firebasestorage.app",
-  messagingSenderId: "231452052216",
-  appId: "1:231452052216:web:d3c4272c9009d00416490d",
-  measurementId: "G-GM6ZSKWEDP",
-  databaseURL: "https://artist-check-ee7e1-default-rtdb.asia-southeast1.firebasedatabase.app"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const qs = new URLSearchParams(location.search);
-let eventId = sanitizeEventId(qs.get('event') || localStorage.getItem('lastEventId') || 'demo-event');
-let data = null;
-let filter = 'all';
-
-const defaultData = {
-  title: 'イベント名未設定',
-  artists: [],
-  updatedAt: Date.now()
-};
-
-function eventRef(){ return ref(db, `events/${eventId}`); }
-function eventBaseRef(id){ return ref(db, `events/${id}`); }
-function sanitizeEventId(s){ return String(s || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g,'-').replace(/-+/g,'-').slice(0,60) || 'demo-event'; }
-function uid(name, i){ return (name || 'artist').toLowerCase().replace(/[^a-z0-9ぁ-んァ-ン一-龥ー_-]/g,'-').slice(0,30) + '-' + i; }
-
-function connect(){
-  localStorage.setItem('lastEventId', eventId);
-  document.getElementById('eventIdLabel').textContent = `event: ${eventId}`;
-  history.replaceState(null,'', `${location.pathname}?event=${encodeURIComponent(eventId)}`);
-  onValue(eventRef(), snap => {
-    if(!snap.exists()) set(eventRef(), defaultData);
-    else { data = snap.val(); render(); }
-  });
-}
-
-function render(){
-  if(!data) return;
-  const artists = Array.isArray(data.artists) ? data.artists : [];
-  document.getElementById('eventTitle').textContent = data.title || '演者受付';
-  document.getElementById('eventIdLabel').textContent = `event: ${eventId}`;
-  const totalGroups = artists.length;
-  const arrivedGroups = artists.filter(a => Number(a.arrived || 0) >= Number(a.total || 1)).length;
-  const totalPeople = artists.reduce((s,a)=>s+Number(a.total||1),0);
-  const arrivedPeople = artists.reduce((s,a)=>s+Math.min(Number(a.arrived||0),Number(a.total||1)),0);
-  groupStat.textContent = `${arrivedGroups}/${totalGroups}`;
-  peopleStat.textContent = `${arrivedPeople}/${totalPeople}`;
-  setNow(artists);
-  const q = searchInput.value.trim().toLowerCase();
-  const shown = artists.filter(a => {
-    const hit = !q || `${a.name} ${a.memo||''}`.toLowerCase().includes(q);
-    const okFilter = filter === 'all' || Number(a.arrived||0) < Number(a.total||1);
-    return hit && okFilter;
-  }).sort((a,b)=>{
-    const afull = Number(a.arrived||0) >= Number(a.total||1);
-    const bfull = Number(b.arrived||0) >= Number(b.total||1);
-    if(afull !== bfull) return afull ? 1 : -1;
-    return (a.time||'99:99').localeCompare(b.time||'99:99');
-  });
-  list.innerHTML = shown.map(a => cardHtml(a)).join('') || '<div class="small">表示する演者がいません</div>';
-}
-function cardHtml(a){
-  const arrived = Number(a.arrived||0), total = Number(a.total||1); const full = arrived >= total;
-  return `<div class="card ${full?'arrived full':''}" data-id="${a.id}"><div><div class="name">${escapeHtml(a.name)}</div><div class="time">${a.time ? escapeHtml(a.time) : '時間未設定'}</div>${a.memo?`<div class="memo">${escapeHtml(a.memo)}</div>`:''}</div><div class="count"><button class="countBtn" data-delta="-1">−</button><div class="num">${arrived}/${total}</div><button class="countBtn" data-delta="1">＋</button></div></div>`;
-}
-function setNow(artists){
-  const timed = artists.filter(a=>/^\d{1,2}:\d{2}$/.test(a.time||'')).sort((a,b)=>a.time.localeCompare(b.time));
-  if(!timed.length){ nowName.textContent='-'; nextName.textContent='-'; return; }
-  const d = new Date(); const m = d.getHours()*60+d.getMinutes();
-  let now = null, next = null;
-  for(let i=0;i<timed.length;i++){ const tm = toMin(timed[i].time); if(tm<=m) now=timed[i]; if(tm>m){ next=timed[i]; break; } }
-  nowName.textContent = now ? now.name : '-';
-  nextName.textContent = next ? `${next.time} ${next.name}` : '-';
-}
-function toMin(t){ const [h,m]=t.split(':').map(Number); return h*60+m; }
-function escapeHtml(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-
-list.addEventListener('click', e => {
-  const btn = e.target.closest('.countBtn'); if(!btn || !data) return;
-  const card = btn.closest('.card'); const id = card.dataset.id; const delta = Number(btn.dataset.delta);
-  const artists = [...data.artists]; const i = artists.findIndex(a=>a.id===id); if(i<0) return;
-  const total = Number(artists[i].total || 1); const now = Number(artists[i].arrived || 0);
-  artists[i] = {...artists[i], arrived: Math.max(0, Math.min(total, now + delta)), arrivedAt: delta>0 ? Date.now() : artists[i].arrivedAt};
-  update(eventRef(), { artists, updatedAt: Date.now() });
-});
-
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render();}));
-searchInput.addEventListener('input', render);
-shareBtn.onclick = async()=>{ try{ await navigator.clipboard.writeText(location.href); shareBtn.textContent='コピー済み'; setTimeout(()=>shareBtn.textContent='共有URL',1200);}catch(e){ prompt('共有URL', location.href); } };
-editEventBtn.onclick=()=>{ titleInput.value=data?.title||''; eventInput.value=eventId; eventDialog.showModal(); };
-editArtistsBtn.onclick=()=>{ artistsError.textContent=''; artistsText.value=(data?.artists||[]).map(a=>[a.time||'',a.name||'',a.total||1,a.memo||''].join(',')).join('\n'); artistsDialog.showModal(); };
-document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
-saveEventBtn.onclick=()=>{ const newId=sanitizeEventId(eventInput.value); if(titleInput.value.trim()) update(eventRef(), {title:titleInput.value.trim(), updatedAt:Date.now()}); eventDialog.close(); if(newId!==eventId){ eventId=newId; location.href=`${location.pathname}?event=${encodeURIComponent(eventId)}`; } };
-saveArtistsBtn.onclick=()=>{ try{ const artists = parseArtistText(artistsText.value); update(eventRef(), {artists, updatedAt:Date.now()}); artistsDialog.close(); }catch(err){ artistsError.textContent=err.message; } };
-
-settingsBtn.onclick=()=>{ settingsEventId.textContent=eventId; settingsDialog.showModal(); };
-resetArrivalsBtn.onclick=async()=>{
-  if(!data) return;
-  if(!confirm('全演者の到着状況を0に戻しますか？\n演者リスト・人数・時間は残ります。')) return;
-  const artists=(data.artists||[]).map(a=>({...a, arrived:0, arrivedAt:null}));
-  await update(eventRef(), {artists, updatedAt:Date.now()});
-  settingsDialog.close();
-};
-deleteEventBtn.onclick=async()=>{
-  const ok=confirm(`イベント「${data?.title||eventId}」の全データを削除します。\nこの操作は戻せません。よろしいですか？`);
-  if(!ok) return;
-  const ok2=confirm('本当に削除しますか？');
-  if(!ok2) return;
-  await remove(eventRef());
-  settingsDialog.close();
-  alert('削除しました。次に同じURLを開くと初期データが作られます。');
-};
-duplicateEventBtn.onclick=()=>{
-  duplicateError.textContent='';
-  duplicateIdInput.value=`${eventId}-copy`;
-  duplicateTitleInput.value=data?.title ? `${data.title} コピー` : '';
-  settingsDialog.close();
-  duplicateDialog.showModal();
-};
-saveDuplicateBtn.onclick=async()=>{
-  try{
-    const newId=sanitizeEventId(duplicateIdInput.value);
-    if(!newId) throw new Error('イベントIDを入力してください');
-    if(newId===eventId) throw new Error('今と違うイベントIDにしてください');
-    const copy={...data, title: duplicateTitleInput.value.trim() || data?.title || '演者受付', artists:(data?.artists||[]).map(a=>({...a, arrived:0, arrivedAt:null})), updatedAt:Date.now(), copiedFrom:eventId};
-    await set(eventBaseRef(newId), copy);
-    duplicateDialog.close();
-    location.href=`${location.pathname}?event=${encodeURIComponent(newId)}`;
-  }catch(err){ duplicateError.textContent=err.message; }
-};
-
-flyerBtn.onclick=()=>{ ocrError.textContent=''; ocrStatus.textContent=''; ocrText.value=''; flyerInput.value=''; flyerDialog.showModal(); };
-runOcrBtn.onclick=async()=>{
-  try{
-    ocrError.textContent='';
-    const file=flyerInput.files && flyerInput.files[0];
-    if(!file) throw new Error('画像を選んでください');
-    ocrStatus.textContent='読み取り中... 少し時間がかかります';
-    const result=await Tesseract.recognize(file, 'jpn+eng', { logger:m=>{ if(m.status) ocrStatus.textContent=`読み取り中... ${m.status} ${m.progress?Math.round(m.progress*100)+'%':''}`; } });
-    const raw=result.data.text || '';
-    ocrText.value=extractArtistLines(raw);
-    ocrStatus.textContent='読み取り完了。不要な行を消して、必要なら人数を直してください。';
-  }catch(err){ ocrError.textContent=err.message || String(err); ocrStatus.textContent=''; }
-};
-saveOcrBtn.onclick=()=>{
-  try{
-    const artists=parseArtistText(ocrText.value);
-    update(eventRef(), {artists, updatedAt:Date.now()});
-    flyerDialog.close();
-  }catch(err){ ocrError.textContent=err.message; }
-};
-function extractArtistLines(raw){
-  const ng=/open|start|close|door|adv|予約|料金|charge|entrance|ticket|¥|円|date|場所|会場|池袋|knot|at |dj\s*bar/i;
-  const lines=raw.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
-  const picked=[];
-  for(const line of lines){
-    let t=line.replace(/[|｜•・]/g,' ').replace(/\s{2,}/g,' ').trim();
-    if(t.length<2 || t.length>40) continue;
-    if(ng.test(t)) continue;
-    const time=(t.match(/(\d{1,2})[:：](\d{2})/)||[]);
-    let tm='';
-    if(time[0]){ tm=`${time[1].padStart(2,'0')}:${time[2]}`; t=t.replace(time[0],'').trim(); }
-    t=t.replace(/^(DJ|LIVE|GUEST|REGULAR)[:：\s-]*/i,'').trim();
-    if(!t) continue;
-    picked.push(`${tm?tm+',':''}${t},1`);
-  }
-  return [...new Set(picked)].join('\n');
-}
-function parseArtistText(text){
-  return text.split('\n').map(x=>x.trim()).filter(Boolean).map((line,i)=>{
-    const p=line.split(',').map(v=>v.trim()); let time='',name='',total=1,memo='';
-    if(/^\d{1,2}:\d{2}$/.test(p[0])){ [time,name,total,memo]=p; } else { [name,total,memo]=p; }
-    if(!name) throw new Error(`${i+1}行目の演者名が空です`);
-    return {id:uid(name,i), time, name, total:Math.max(1,Number(total)||1), arrived:0, memo:memo||''};
-  });
-}
-
-connect(); setInterval(()=>data&&render(),30000);
-</script>
+<p class="p1"><span class="s1"><b>演者受付</b></span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p3"><span class="s3">共有</span><span class="s2">URL</span></p>
+<p class="p4"><span class="s2">⚙️</span></p>
+<p class="p5"><span class="s4">▶ </span><span class="s5"><b>-</b></span></p>
+<p class="p5"><span class="s6">次</span><span class="s4"> </span><span class="s5"><b>-</b></span></p>
+<p class="p6"><span class="s4">入場料カウント</span></p>
+<p class="p6"><span class="s2"><b>演者チェック</b></span></p>
+<p class="p7"><span class="s2"></span><br></p>
+<p class="p8"><span class="s2"><b>全員</b></span></p>
+<p class="p9"><span class="s2">未到着</span></p>
+<p class="p6"><span class="s4">演者人数</span></p>
+<p class="p10"><span class="s7"><b>0/0</b></span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>イベント設定</b></span></h3>
+<p class="p6"><span class="s1">イベント名</span></p>
+<p class="p6"><span class="s1">イベント</span><span class="s8">ID</span></p>
+<p class="p12"><span class="s1">イベント</span><span class="s8">ID</span><span class="s1">を変えると別イベントになります。例：</span><span class="s8">soul-jamaica-2026</span></p>
+<p class="p13"><span class="s2"><b>閉じる</b></span></p>
+<p class="p8"><span class="s2"><b>保存</b></span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>入場料設定</b></span></h3>
+<p class="p12"><span class="s1">料金名・金額・ドリンク枚数を入力。金額は</span><span class="s8">500</span><span class="s1">円刻み。例：通常</span><span class="s8"> ¥1000 / 1D</span><span class="s1">、ディスカウント</span><span class="s8"> ¥500 / 1D</span><span class="s1">、ゲスト</span><span class="s8"> ¥0 / 0D</span></p>
+<p class="p14"><span class="s2"><b>＋</b></span><span class="s9"><b> </b></span><span class="s2"><b>料金を追加</b></span></p>
+<p class="p13"><span class="s2"><b>閉じる</b></span></p>
+<p class="p8"><span class="s2"><b>保存</b></span></p>
+<p class="p15"><span class="s2"></span><br></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>演者編集</b></span></h3>
+<p class="p12"><span class="s8">1</span><span class="s1">行に「時間,演者名,人数,メモ」。時間なしでも</span><span class="s8">OK</span><span class="s1">。例：</span><span class="s8">20:30</span><span class="s1">,</span><span class="s8">OSAGARI</span><span class="s1">,</span><span class="s8">2</span><span class="s1">,もう</span><span class="s8">1</span><span class="s1">人後入り</span></p>
+<p class="p13"><span class="s2"><b>閉じる</b></span></p>
+<p class="p8"><span class="s2"><b>保存</b></span></p>
+<p class="p15"><span class="s2"></span><br></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>演者を修正</b></span></h3>
+<p class="p6"><span class="s1">演者名</span></p>
+<p class="p6"><span class="s1">開始時間</span></p>
+<p class="p6"><span class="s1">人数</span></p>
+<p class="p6"><span class="s1">到着人数</span></p>
+<p class="p6"><span class="s1">メモ</span></p>
+<p class="p13"><span class="s2"><b>閉じる</b></span></p>
+<p class="p16"><span class="s2"><b>削除</b></span></p>
+<p class="p8"><span class="s2"><b>保存</b></span></p>
+<p class="p15"><span class="s2"></span><br></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>設定</b></span></h3>
+<p class="p12"><span class="s1">イベント</span><span class="s8">ID</span><span class="s1">：</span></p>
+<p class="p14"><span class="s2"><b>イベント設定</b></span></p>
+<p class="p14"><span class="s2"><b>タイムテーブル読込</b></span></p>
+<p class="p14"><span class="s2"><b>入場料を追加・編集</b></span></p>
+<p class="p14"><span class="s2"><b>到着状況だけリセット</b></span></p>
+<p class="p14"><span class="s2"><b>入場料カウントだけリセット</b></span></p>
+<p class="p14"><span class="s2"><b>イベントを複製</b></span></p>
+<p class="p17"><span class="s2"><b>イベント全削除</b></span></p>
+<p class="p13"><span class="s2"><b>閉じる</b></span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>イベントを複製</b></span></h3>
+<p class="p6"><span class="s1">新しいイベント</span><span class="s8">ID</span></p>
+<p class="p6"><span class="s1">新しいイベント名</span></p>
+<p class="p12"><span class="s1">演者・人数・タイムテーブルをコピーして、到着状況は</span><span class="s8">0</span><span class="s1">に戻します。</span></p>
+<p class="p13"><span class="s2"><b>キャンセル</b></span></p>
+<p class="p8"><span class="s2"><b>複製する</b></span></p>
+<p class="p15"><span class="s2"></span><br></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px '.Hiragino Kaku Gothic Interface'; color: #f2f5fa; -webkit-text-stroke: #f2f5fa"><span class="s1"><b>タイムテーブル読込</b></span></h3>
+<p class="p12"><span class="s1">タイムテーブル画像から文字を読み取り、演者候補を抽出します。読み取り後、不要な行を消して保存してください。</span></p>
+<p class="p18"><span class="s2"></span><br></p>
+<p class="p8"><span class="s2"><b>画像から読み取り</b></span></p>
+<p class="p6"><span class="s1">読み取り結果・演者候補</span></p>
+<p class="p2"><span class="s2"></span><br></p>
+<p class="p19"><span class="s10">✏️</span><span class="s11"> </span><span class="s4">修正のヒント：</span></p>
+<p class="p19"><span class="s4">・名前の誤字は直接編集</span></p>
+<p class="p19"><span class="s4">・不要な行は削除</span></p>
+<p class="p19"><span class="s4">・形式：</span><span class="s12">時間,名前,人数</span><span class="s4">（時間なしも</span><span class="s11">OK</span><span class="s4">）</span></p>
+<p class="p20"><span class="s2">・</span><span class="s13">B2B</span><span class="s2">は人数を</span><span class="s13">2</span><span class="s2">に</span><span class="s13"><span class="Apple-converted-space"> </span></span></p>
+<p class="p21"><span class="s2"></span><br></p>
+<p class="p13"><span class="s2"><b>閉じる</b></span></p>
+<p class="p8"><span class="s2"><b>演者に反映</b></span></p>
+<p class="p15"><span class="s2"></span><br></p>
 </body>
 </html>
