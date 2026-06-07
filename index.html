@@ -523,23 +523,9 @@ function extractArtistLines(raw){
       line = cleanOcrLine(line);
       if(!line) continue;
 
-      // パターン1: 「時間-時間 演者名」 または 「時間-時間」
-      const range = findTimeRange(line);
-      if(range){
-        let name = cleanArtistName(line.slice(range.endIndex).trim());
-        if(!name){
-          // 時間だけ→次行に演者名が来る可能性
-          pendingTime = range.start;
-          continue;
-        }
-        if(!isProbablyNotArtist(name)){
-          timedCandidates.push({time: range.start, name});
-        }
-        pendingTime = '';
-        continue;
-      }
+      // パターン優先順位：「演者名 時間」形式を先に試す（時間が途中にある行で誤マッチを防ぐ）
 
-      // パターン2: 「演者名 時間-時間」（今回の画像のような形式）
+      // パターンA: 「演者名 時間-時間」（例: "saki 18:00-18:15"）
       const nameBeforeRange = findNameBeforeTimeRange(line);
       if(nameBeforeRange){
         const { name, time } = nameBeforeRange;
@@ -550,7 +536,33 @@ function extractArtistLines(raw){
         continue;
       }
 
-      // パターン3: 「時間 演者名」 または 「時間」
+      // パターンB: 「時間-時間 演者名」 または 「時間-時間」
+      const range = findTimeRange(line);
+      if(range){
+        let name = cleanArtistName(line.slice(range.endIndex).trim());
+        if(!name){
+          pendingTime = range.start;
+          continue;
+        }
+        if(!isProbablyNotArtist(name)){
+          timedCandidates.push({time: range.start, name});
+        }
+        pendingTime = '';
+        continue;
+      }
+
+      // パターンC: 「演者名 時間」（例: "saki 18:00"）
+      const nameBeforeSingle = findNameBeforeSingleTime(line);
+      if(nameBeforeSingle){
+        const { name, time } = nameBeforeSingle;
+        if(!isProbablyNotArtist(name)){
+          timedCandidates.push({time, name});
+        }
+        pendingTime = '';
+        continue;
+      }
+
+      // パターンD: 「時間 演者名」 または 「時間」
       const single = findSingleTime(line);
       if(single){
         let name = cleanArtistName(line.slice(single.endIndex).trim());
@@ -560,17 +572,6 @@ function extractArtistLines(raw){
         }
         if(!isProbablyNotArtist(name)){
           timedCandidates.push({time: single.time, name});
-        }
-        pendingTime = '';
-        continue;
-      }
-
-      // パターン4: 「演者名 時間」
-      const nameBeforeSingle = findNameBeforeSingleTime(line);
-      if(nameBeforeSingle){
-        const { name, time } = nameBeforeSingle;
-        if(!isProbablyNotArtist(name)){
-          timedCandidates.push({time, name});
         }
         pendingTime = '';
         continue;
@@ -626,10 +627,17 @@ function findNameBeforeSingleTime(line){
 }
 
 function splitPossibleScheduleLine(line){
-  // 1行に複数の時間枠が混ざったOCR結果を分割しやすくする
   const s = String(line || '').replace(/\s+/g, ' ').trim();
   if(!s) return [];
-  const parts = s.split(/(?=(?:^|\s)[0-2]?\d\s*[:.]\s*[0-5]\d\s*(?:-|〜|~|～)?)/).map(x=>x.trim()).filter(Boolean);
+  // 「演者名 時間-時間」または「演者名 時間」形式（行頭が非数字）なら分割しない
+  // ただし行頭が時間（数字:数字）で始まる場合は通常分割する
+  const startsWithTime = /^[0-2]?\d\s*[:.]\s*[0-5]\d/.test(s);
+  if(!startsWithTime){
+    // 名前が先頭にくる形式 → 分割しない
+    return [s];
+  }
+  // 時間が先頭の場合だけ複数枠の分割を試みる
+  const parts = s.split(/(?=\s[0-2]?\d\s*[:.]\s*[0-5]\d)/).map(x=>x.trim()).filter(Boolean);
   return parts.length ? parts : [s];
 }
 
@@ -772,7 +780,7 @@ function isProbablyNotArtist(name){
   if(!n) return true;
   if(n.length < 2 || n.length > 50) return true;
   // 数字だけのDJ名（例：3310）もあるので除外しない
-  if(/^(open|start|close|door|adv|予約|料金|charge|entrance|ticket|date|場所|会場|address|instagram|twitter|x:|¥|円)$/i.test(n)) return true;
+  if(/^(open|start|close|door|adv|予約|料金|charge|entrance|ticket|date|場所|会場|address|instagram|twitter|x:|¥|円|timetable|time table|schedule|フライヤー|flyer)$/i.test(n)) return true;
   if(/(https?:|www\.|@|gmail|email|tel|〒)/i.test(n)) return true;
   // 記号やゴミだけの候補を除外
   if(!/[A-Za-z0-9\u3040-\u30ff\u3400-\u9fff]/.test(n)) return true;
