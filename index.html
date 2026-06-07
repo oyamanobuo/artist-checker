@@ -134,8 +134,10 @@ function render(){
   const artists = Array.isArray(data.artists) ? data.artists : [];
   document.getElementById('eventTitle').textContent = data.title || 'エントランス屋さん太郎';
   document.getElementById('eventIdLabel').textContent = `event: ${eventId}`;
-  const totalPeople = artists.reduce((s,a)=>s+Number(a.total||1),0);
-  const arrivedPeople = artists.reduce((s,a)=>s+Math.min(Number(a.arrived||0),Number(a.total||1)),0);
+  // 同名演者が複数時間帯に出る場合はユニーク人数でカウント
+  const uniqueArtists = [...new Map(artists.map(a=>[artistArrivalKey(a.name), a])).values()];
+  const totalPeople = uniqueArtists.reduce((s,a)=>s+Number(a.total||1),0);
+  const arrivedPeople = uniqueArtists.reduce((s,a)=>s+Math.min(Number(a.arrived||0),Number(a.total||1)),0);
   const prices = Array.isArray(data.prices) ? data.prices : [];
   peopleStat.textContent = `${arrivedPeople}/${totalPeople}`;
   renderFees(prices);
@@ -521,10 +523,12 @@ function extractArtistLines(raw){
       line = cleanOcrLine(line);
       if(!line) continue;
 
+      // パターン1: 「時間-時間 演者名」 または 「時間-時間」
       const range = findTimeRange(line);
       if(range){
         let name = cleanArtistName(line.slice(range.endIndex).trim());
         if(!name){
+          // 時間だけ→次行に演者名が来る可能性
           pendingTime = range.start;
           continue;
         }
@@ -535,6 +539,18 @@ function extractArtistLines(raw){
         continue;
       }
 
+      // パターン2: 「演者名 時間-時間」（今回の画像のような形式）
+      const nameBeforeRange = findNameBeforeTimeRange(line);
+      if(nameBeforeRange){
+        const { name, time } = nameBeforeRange;
+        if(!isProbablyNotArtist(name)){
+          timedCandidates.push({time, name});
+        }
+        pendingTime = '';
+        continue;
+      }
+
+      // パターン3: 「時間 演者名」 または 「時間」
       const single = findSingleTime(line);
       if(single){
         let name = cleanArtistName(line.slice(single.endIndex).trim());
@@ -549,7 +565,18 @@ function extractArtistLines(raw){
         continue;
       }
 
-      // 「20:05-20:25」だけが1行、その下に演者名が来る場合
+      // パターン4: 「演者名 時間」
+      const nameBeforeSingle = findNameBeforeSingleTime(line);
+      if(nameBeforeSingle){
+        const { name, time } = nameBeforeSingle;
+        if(!isProbablyNotArtist(name)){
+          timedCandidates.push({time, name});
+        }
+        pendingTime = '';
+        continue;
+      }
+
+      // 「時間だけの行」の次行に演者名が来る場合
       if(pendingTime){
         const name = cleanArtistName(line);
         if(name && !isProbablyNotArtist(name)){
@@ -559,7 +586,7 @@ function extractArtistLines(raw){
         continue;
       }
 
-      // 時間が少ない画像だけ、出演者一覧として補助採用する
+      // 時間情報がない行は演者名候補として補助採用
       const looseName = cleanArtistName(line);
       if(looseName && !isProbablyNotArtist(looseName)){
         looseCandidates.push(looseName);
@@ -568,13 +595,34 @@ function extractArtistLines(raw){
   }
 
   // 時間つき候補が十分ある場合は、ゴミ行を避けるため時間つきだけ採用
+  // ※同一演者が複数時間帯に出る場合は重複除去しない（2回まわし対応）
   if(timedCandidates.length >= 4){
-    return bestTimedCandidates(timedCandidates).map(x => `${x.time},${x.name},${guessPeopleCount(x.name)}`).join('\n');
+    return allTimedCandidates(timedCandidates).map(x => `${x.time},${x.name},${guessPeopleCount(x.name)}`).join('\n');
   }
 
-  const timed = bestTimedCandidates(timedCandidates).map(x => `${x.time},${x.name},${guessPeopleCount(x.name)}`);
+  const timed = allTimedCandidates(timedCandidates).map(x => `${x.time},${x.name},${guessPeopleCount(x.name)}`);
   const loose = uniqueNames(looseCandidates).map(name => `${name},${guessPeopleCount(name)}`);
   return [...timed, ...loose].join('\n');
+}
+
+// 「演者名 時間-時間」フォーマットを検出（例: "saki 18:00-18:15"）
+function findNameBeforeTimeRange(line){
+  const m = line.match(/^(.+?)\s+([0-2]?\d)\s*[:.]\s*([0-5]\d)\s*-\s*([0-2]?\d)\s*[:.]\s*([0-5]\d)\s*$/);
+  if(!m) return null;
+  const name = cleanArtistName(m[1].trim());
+  if(!name) return null;
+  const time = `${m[2].padStart(2,'0')}:${m[3]}`;
+  return { name, time };
+}
+
+// 「演者名 時間」フォーマットを検出（例: "saki 18:00"）
+function findNameBeforeSingleTime(line){
+  const m = line.match(/^(.+?)\s+([0-2]?\d)\s*[:.]\s*([0-5]\d)\s*$/);
+  if(!m) return null;
+  const name = cleanArtistName(m[1].trim());
+  if(!name) return null;
+  const time = `${m[2].padStart(2,'0')}:${m[3]}`;
+  return { name, time };
 }
 
 function splitPossibleScheduleLine(line){
@@ -596,7 +644,23 @@ function bestTimedCandidates(items){
       byTime.set(time, {time, name});
     }
   }
-  return [...byTime.values()].sort((a,b)=>toMin(a.time)-toMin(b.time));
+  return [...byTime.values()].sort((a,b)=>nightMin(a.time)-nightMin(b.time));
+}
+
+// 同一演者が複数時間帯に出る（2回まわし）を保持する版
+// 同じ時間に複数候補がある場合だけスコアで1つに絞る
+function allTimedCandidates(items){
+  const byTime = new Map();
+  for(const item of items){
+    const time = normalizeTime(item.time);
+    const name = cleanArtistName(item.name);
+    if(!time || isProbablyNotArtist(name)) continue;
+    const current = byTime.get(time);
+    if(!current || scoreArtistName(name) > scoreArtistName(current.name)){
+      byTime.set(time, {time, name});
+    }
+  }
+  return [...byTime.values()].sort((a,b)=>nightMin(a.time)-nightMin(b.time));
 }
 
 function normalizeTime(t){
