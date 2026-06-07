@@ -398,8 +398,13 @@ saveFeeBtn.onclick=async()=>{ try{ const prices=readFeeRows(); await update(even
 addFeeRowBtn.onclick=()=>{ const i=feeRows.querySelectorAll('.feeRow').length; feeRows.insertAdjacentHTML('beforeend', feeRowHtml({name:'',amount:0,drinks:1,count:0}, i)); };
 feeRows.addEventListener('click', e=>{ const b=e.target.closest('.delFeeRow'); if(!b) return; b.closest('.feeRow').remove(); if(!feeRows.querySelector('.feeRow')) addFeeRowBtn.click(); });
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
-saveEventBtn.onclick=()=>{ const newId=sanitizeEventId(eventInput.value); if(titleInput.value.trim()) update(eventRef(), {title:titleInput.value.trim(), updatedAt:Date.now()}); eventDialog.close(); if(newId!==eventId){ eventId=newId; location.href=`${location.pathname}?event=${encodeURIComponent(eventId)}`; } };
-saveArtistsBtn.onclick=()=>{ try{ const artists = parseArtistText(artistsText.value); update(eventRef(), {artists, updatedAt:Date.now()}); artistsDialog.close(); }catch(err){ artistsError.textContent=err.message; } };
+saveEventBtn.onclick=async()=>{
+  const newId=sanitizeEventId(eventInput.value);
+  if(titleInput.value.trim()) await update(eventRef(), {title:titleInput.value.trim(), updatedAt:Date.now()});
+  eventDialog.close();
+  if(newId!==eventId){ eventId=newId; location.href=`${location.pathname}?event=${encodeURIComponent(eventId)}`; }
+};
+saveArtistsBtn.onclick=async()=>{ try{ const artists = parseArtistText(artistsText.value); await update(eventRef(), {artists, updatedAt:Date.now()}); artistsDialog.close(); }catch(err){ artistsError.textContent=err.message; } };
 
 settingsBtn.onclick=()=>{ settingsEventId.textContent=eventId; settingsDialog.showModal(); };
 openEventSettingsBtn.onclick=()=>{ settingsDialog.close(); openEventDialog(); };
