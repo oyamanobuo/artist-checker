@@ -97,9 +97,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const qs = new URLSearchParams(location.search);
-let eventId = sanitizeEventId(qs.get('event') || localStorage.getItem('lastEventId') || 'demo-event');
+function genEventId(){ return 'event-' + Math.random().toString(36).slice(2,8); }
+let eventId = sanitizeEventId(qs.get('event') || localStorage.getItem('lastEventId') || genEventId());
 let data = null;
 let filter = 'all';
+let _unsubscribe = null;
 
 const defaultData = {
   title: 'エントランス屋さん太郎',
@@ -114,12 +116,14 @@ function eventRef(){ return ref(db, `events/${eventId}`); }
 function eventBaseRef(id){ return ref(db, `events/${id}`); }
 function sanitizeEventId(s){ return String(s || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g,'-').replace(/-+/g,'-').slice(0,60) || 'demo-event'; }
 function uid(name, i){ return (name || 'artist').toLowerCase().replace(/[^a-z0-9ぁ-んァ-ン一-龥ー_-]/g,'-').slice(0,30) + '-' + i; }
+function newUid(){ try{ return crypto.randomUUID(); }catch(e){ return Math.random().toString(36).slice(2)+Date.now().toString(36); } }
 
 function connect(){
+  if(_unsubscribe){ _unsubscribe(); _unsubscribe = null; }
   localStorage.setItem('lastEventId', eventId);
   document.getElementById('eventIdLabel').textContent = `event: ${eventId}`;
   history.replaceState(null,'', `${location.pathname}?event=${encodeURIComponent(eventId)}`);
-  onValue(eventRef(), snap => {
+  _unsubscribe = onValue(eventRef(), snap => {
     if(!snap.exists()) set(eventRef(), defaultData);
     else { data = snap.val(); render(); }
   });
@@ -144,14 +148,13 @@ function render(){
     const okFilter = filter === 'all' || Number(a.arrived||0) < Number(a.total||1);
     return hit && okFilter;
   }).sort((a,b)=>{
-    // 全員モードでは到着済みを下に送らず、タイムテーブル順を維持します。
-    return (a.time||'99:99').localeCompare(b.time||'99:99');
+    return nightMin(a.time||'99:99') - nightMin(b.time||'99:99');
   });
   list.innerHTML = shown.map(a => cardHtml(a)).join('') || '<div class="small">表示する演者がいません</div>';
 }
 function cardHtml(a){
   const arrived = Number(a.arrived||0), total = Number(a.total||1); const full = arrived >= total;
-  return `<div class="card ${full?'arrived full':''}" data-id="${a.id}"><div><div class="name">${escapeHtml(a.name)}</div><div class="time">${a.time ? escapeHtml(a.time) : '時間未設定'}</div>${a.memo?`<div class="memo">${escapeHtml(a.memo)}</div>`:''}</div><div class="count"><button class="countBtn" data-delta="-1">−</button><div class="num">${arrived}/${total}</div><button class="countBtn" data-delta="1">＋</button></div></div>`;
+  return `<div class="card ${full?'arrived full':''}" data-id="${a.id}"><div><div class="name">${escapeHtml(a.name)}</div><div class="time">${a.time ? escapeHtml(a.time) : '時間未設定'}</div>${a.memo?`<div class="memo">${escapeHtml(a.memo)}</div>`:''}</div><div class="count"><button class="countBtn" data-delta="-1" ${arrived<=0?'disabled style="opacity:.35"':''}>−</button><div class="num">${arrived}/${total}</div><button class="countBtn" data-delta="1" ${full?'disabled style="opacity:.35"':''}>＋</button></div></div>`;
 }
 function renderFees(prices){
   if(!prices.length){
@@ -208,15 +211,17 @@ function readFeeRows(){
 }
 
 function setNow(artists){
-  const timed = artists.filter(a=>/^\d{1,2}:\d{2}$/.test(a.time||'')).sort((a,b)=>a.time.localeCompare(b.time));
+  const timed = artists.filter(a=>/^\d{1,2}:\d{2}$/.test(a.time||'')).sort((a,b)=>nightMin(a.time)-nightMin(b.time));
   if(!timed.length){ nowName.textContent='-'; nextName.textContent='-'; return; }
-  const d = new Date(); const m = d.getHours()*60+d.getMinutes();
+  const d = new Date(); const rawM = d.getHours()*60+d.getMinutes();
+  // 深夜0〜5時台は前日の続き扱い（+1440分）にしてタイムテーブル順を維持
+  const m = rawM < 6*60 ? rawM + 1440 : rawM;
   let now = null, next = null;
-  for(let i=0;i<timed.length;i++){ const tm = toMin(timed[i].time); if(tm<=m) now=timed[i]; if(tm>m){ next=timed[i]; break; } }
+  for(let i=0;i<timed.length;i++){ const tm = nightMin(timed[i].time); if(tm<=m) now=timed[i]; if(tm>m){ next=timed[i]; break; } }
   nowName.textContent = now ? now.name : '-';
   nextName.textContent = next ? `${next.time} ${next.name}` : '-';
 }
-function toMin(t){ const [h,m]=t.split(':').map(Number); return h*60+m; }
+function nightMin(t){ const [h,m]=t.split(':').map(Number); const total=h*60+m; return total < 6*60 ? total+1440 : total; }
 function escapeHtml(s){ return String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 function artistArrivalKey(name){
   return String(name || '')
@@ -226,15 +231,16 @@ function artistArrivalKey(name){
     .replace(/[（(]\s*\d+回目\s*[）)]/g,'');
 }
 
+let _artistDebounceTimer = null;
+let _pendingArtists = null;
 list.addEventListener('click', e => {
   const btn = e.target.closest('.countBtn'); if(!btn || !data) return;
   const card = btn.closest('.card'); const id = card.dataset.id; const delta = Number(btn.dataset.delta);
-  const artists = [...data.artists]; const i = artists.findIndex(a=>a.id===id); if(i<0) return;
+  const artists = [...(_pendingArtists || data.artists)]; const i = artists.findIndex(a=>a.id===id); if(i<0) return;
   const total = Number(artists[i].total || 1); const now = Number(artists[i].arrived || 0);
   const targetArrived = Math.max(0, Math.min(total, now + delta));
   const key = artistArrivalKey(artists[i].name);
 
-  // 同じ演者名が複数回タイムテーブルに出る場合は、到着チェックをまとめて反映します。
   const updatedArtists = artists.map(a => {
     if(artistArrivalKey(a.name) !== key) return a;
     const aTotal = Number(a.total || 1);
@@ -244,21 +250,45 @@ list.addEventListener('click', e => {
       arrivedAt: delta > 0 ? Date.now() : a.arrivedAt
     };
   });
-  update(eventRef(), { artists: updatedArtists, updatedAt: Date.now() });
+  _pendingArtists = updatedArtists;
+  // ローカル即時反映
+  const q = searchInput.value.trim().toLowerCase();
+  const shown = updatedArtists.filter(a => {
+    const hit = !q || `${a.name} ${a.memo||''}`.toLowerCase().includes(q);
+    const okFilter = filter === 'all' || Number(a.arrived||0) < Number(a.total||1);
+    return hit && okFilter;
+  }).sort((a,b)=> nightMin(a.time||'99:99') - nightMin(b.time||'99:99'));
+  list.innerHTML = shown.map(a => cardHtml(a)).join('') || '<div class="small">表示する演者がいません</div>';
+  // Firebase書き込みはデバウンス（500ms）
+  clearTimeout(_artistDebounceTimer);
+  _artistDebounceTimer = setTimeout(()=>{
+    update(eventRef(), { artists: _pendingArtists, updatedAt: Date.now() });
+    _pendingArtists = null;
+  }, 500);
 });
 
+let _feeDebounceTimer = null;
+let _pendingPrices = null;
 feeList.addEventListener('click', async e=>{
   const btn=e.target.closest('[data-fee-delta]');
   if(!btn || !data) return;
   const item=btn.closest('.feeItem');
   const id=item?.dataset.id;
   const delta=Number(btn.dataset.feeDelta);
-  const prices=[...(Array.isArray(data.prices)?data.prices:[])];
+  const prices=[...(_pendingPrices || (Array.isArray(data.prices)?data.prices:[]))];
   const i=prices.findIndex(p=>p.id===id);
   if(i<0) return;
   const count=Math.max(0, Number(prices[i].count||0)+delta);
   prices[i]={...prices[i], count};
-  await update(eventRef(), {prices, updatedAt:Date.now()});
+  _pendingPrices = prices;
+  // ローカル即時反映
+  renderFees(prices);
+  // Firebase書き込みはデバウンス（500ms）
+  clearTimeout(_feeDebounceTimer);
+  _feeDebounceTimer = setTimeout(async ()=>{
+    await update(eventRef(), {prices: _pendingPrices, updatedAt:Date.now()});
+    _pendingPrices = null;
+  }, 500);
 });
 let feeLongPressTimer=null;
 function startFeeLongPress(e){
@@ -342,7 +372,10 @@ deleteSingleArtistBtn.onclick=async()=>{
 };
 
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render();}));
-searchInput.addEventListener('input', render);
+let _imeComposing = false;
+searchInput.addEventListener('compositionstart', ()=>{ _imeComposing = true; });
+searchInput.addEventListener('compositionend', ()=>{ _imeComposing = false; render(); });
+searchInput.addEventListener('input', ()=>{ if(!_imeComposing) render(); });
 saveNotesBtn.onclick=async()=>{
   if(!data) return;
   await update(eventRef(), {notes:eventNotes.value, updatedAt:Date.now()});
@@ -390,7 +423,7 @@ saveNewArtistBtn.onclick=async()=>{
     const total=Math.max(1, Number(newArtistTotal.value)||1);
     const artists=[...(Array.isArray(data.artists)?data.artists:[])];
     artists.push({
-      id: uid(name, Date.now()),
+      id: newUid(),
       name,
       time,
       total,
@@ -776,11 +809,13 @@ function parseArtistText(text){
     const parsedTime = normalizeTimeInput(p[0]);
     if(parsedTime){ time=parsedTime; [,name,total,memo]=p; } else { [name,total,memo]=p; }
     if(!name) throw new Error(`${i+1}行目の演者名が空です`);
-    return {id:uid(name,i), time, name, total:Math.max(1,Number(total)||1), arrived:0, memo:memo||''};
+    return {id:newUid(), time, name, total:Math.max(1,Number(total)||1), arrived:0, memo:memo||''};
   });
 }
 
-connect(); setInterval(()=>data&&render(),30000);
+connect();
+setInterval(()=>data&&render(), 30000);
+setInterval(()=>{ if(data){ const artists=Array.isArray(data.artists)?data.artists:[]; setNow(artists); } }, 10000);
 </script>
 </body>
 </html>
