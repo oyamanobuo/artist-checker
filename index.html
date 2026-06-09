@@ -922,6 +922,8 @@ function cleanArtistName(name){
   n = n.replace(/^\]I\s*[£E]5$/i, '川上亮');
   n = n.replace(/^\]l\s*[£E]5$/i, '川上亮');
 
+  n = n.replace(/るろ/g, 'ろ');  // OCR: ruro->ro
+  n = n.replace(/ろる/g, 'ろ');  // OCR: roru->ro
   n = n.replace(/\s+/g,' ').trim();
   // OCRで末尾に残りがちな記号だけ削る。B2Bやドット入り名は残す。
   n = n.replace(/^[\-–—:：,，.．。\s]+|[\-–—:：,，。\s]+$/g,'').trim();
@@ -931,7 +933,8 @@ function cleanArtistName(name){
 function isProbablyNotArtist(name){
   const n = String(name||'').trim();
   if(!n) return true;
-  if(n.length < 2 || n.length > 50) return true;
+  if(n.length < 1 || n.length > 50) return true;
+  if(n.length === 1 && !/[\u3040-\u30ff\u3400-\u9fff]/.test(n)) return true;
   // 数字だけのDJ名（例：3310）もあるので除外しない
   if(/^(open|start|close|door|adv|予約|料金|charge|entrance|ticket|date|場所|会場|address|instagram|twitter|x:|¥|円|timetable|time table|schedule|フライヤー|flyer)$/i.test(n)) return true;
   if(/(https?:|www\.|@|gmail|email|tel|〒)/i.test(n)) return true;
