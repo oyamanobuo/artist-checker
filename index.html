@@ -184,6 +184,7 @@ function render(){
   peopleStat.textContent = `${arrivedPeople}/${totalPeople}`;
   renderFees(prices);
   renderDiscounts();
+  renderTtImage();
   if(document.activeElement !== eventNotes) eventNotes.value = data.notes || '';
   if(document.activeElement !== contactMemo) contactMemo.value = data.contactMemo || '';
   updateUnreadBadge(!!data.contactUnread);
@@ -1053,41 +1054,61 @@ document.querySelectorAll('.mainTab').forEach(btn=>{
 });
 
 // ===== タイムテーブル画像 =====
-function ttKey(){ return 'ttImg_'+eventId; }
+// ===== タイムテーブル画像: Canvas圧縮出力 =====
+function compressImage(dataUrl, callback){
+  const img = new Image();
+  img.onload = ()=>{
+    const MAX = 1200;
+    let w = img.width, h = img.height;
+    if(w > MAX){ h = Math.round(h * MAX / w); w = MAX; }
+    const canvas = document.createElement('canvas');
+    canvas.width = w; canvas.height = h;
+    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+    callback(canvas.toDataURL('image/jpeg', 0.72));
+  };
+  img.src = dataUrl;
+}
+
 function renderTtImage(){
   const img=document.getElementById('ttImg');
   const empty=document.getElementById('ttEmpty');
-  const url=localStorage.getItem(ttKey());
+  const url = data?.ttImage || null;
   if(url){ img.src=url; img.style.display='block'; empty.style.display='none'; }
   else { img.style.display='none'; empty.style.display='block'; }
 }
-renderTtImage();
+
+function saveTtImage(dataUrl){
+  compressImage(dataUrl, compressed=>{
+    update(eventRef(), {ttImage: compressed, updatedAt: Date.now()});
+    renderTtImage();
+  });
+}
+
+function switchToTtTab(){
+  document.querySelectorAll('.mainTab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tabPane').forEach(p=>p.classList.remove('active'));
+  document.querySelector('[data-main-tab="timetable"]').classList.add('active');
+  document.getElementById('paneTimetable').classList.add('active');
+}
+
 function loadTtImage(){
   const input=document.createElement('input');
   input.type='file'; input.accept='image/*';
   input.onchange=e=>{
     const file=e.target.files[0]; if(!file) return;
     const r=new FileReader();
-    r.onload=ev=>{
-      try{ localStorage.setItem(ttKey(),ev.target.result); }catch(err){}
-      renderTtImage();
-      // タイムテーブルタブへ切り替え
-      document.querySelectorAll('.mainTab').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('.tabPane').forEach(p=>p.classList.remove('active'));
-      document.querySelector('[data-main-tab="timetable"]').classList.add('active');
-      document.getElementById('paneTimetable').classList.add('active');
-    };
+    r.onload=ev=>{ saveTtImage(ev.target.result); switchToTtTab(); };
     r.readAsDataURL(file);
   };
   input.click();
 }
 document.getElementById('ttLoadBtn').onclick=loadTtImage;
 
-// OCRダイアログで画像選択時にもタイムテーブルタブへ保存
+// OCRダイアログで画像選択時にもFirebaseへ保存
 document.getElementById('flyerInput').addEventListener('change', e=>{
   const file=e.target.files[0]; if(!file) return;
   const r=new FileReader();
-  r.onload=ev=>{ try{ localStorage.setItem(ttKey(),ev.target.result); }catch(err){} renderTtImage(); };
+  r.onload=ev=>{ saveTtImage(ev.target.result); };
   r.readAsDataURL(file);
 });
 
