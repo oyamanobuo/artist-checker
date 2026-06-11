@@ -182,7 +182,7 @@ function render(){
   const arrivedPeople = uniqueArtists.reduce((s,a)=>s+Math.min(Number(a.arrived||0),Number(a.total||1)),0);
   const prices = Array.isArray(data.prices) ? data.prices : [];
   peopleStat.textContent = `${arrivedPeople}/${totalPeople}`;
-  renderFees(prices);
+  renderFees(_pendingPrices || prices);
   renderDiscounts();
   renderTtImage();
   if(document.activeElement !== eventNotes) eventNotes.value = data.notes || '';
