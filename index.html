@@ -729,23 +729,45 @@ feeRows.addEventListener('click', e=>{
 document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
 saveEventBtn.onclick=async()=>{
   if(saveEventBtn.disabled) return;
-  const newId=sanitizeEventId(eventInput.value);
-  const newTitle=titleInput.value.trim();
-  saveEventBtn.disabled=true;
+  const oldId = eventId;
+  const newId = sanitizeEventId(eventInput.value);
+  const newTitle = titleInput.value.trim() || 'エントランス屋さん太郎';
+  saveEventBtn.disabled = true;
   try{
-    if(newTitle){
-      const updatedAt=Date.now();
-      await update(eventRef(), {title:newTitle, updatedAt});
-      // Firebaseのリアルタイム反映を待たずに即座にローカル状態へ反映（通信が遅い時の「保存したのに戻る」対策）
-      data = {...(data||{}), title:newTitle, updatedAt};
-      render();
+    const updatedAt = Date.now();
+
+    // イベントIDを変える時は「古いイベントに保存→新IDへ移動」ではなく、
+    // 新しいイベント側にタイトル込みでデータを作ってから移動する。
+    // これで初回保存後にタイトルが初期値へ戻る現象を防ぐ。
+    if(newId !== oldId){
+      const copy = {
+        ...(data || defaultData),
+        title: newTitle,
+        updatedAt
+      };
+      await set(eventBaseRef(newId), copy);
+      localStorage.setItem('lastEventId', newId);
+      eventDialog.close();
+      location.href = `${location.pathname}?event=${encodeURIComponent(newId)}`;
+      return;
     }
+
+    const nextData = {
+      ...(data || defaultData),
+      title: newTitle,
+      updatedAt
+    };
+
+    // titleだけのupdateだと、未作成イベント直後のdefaultData書き込みと競合して
+    // タイトルが戻ることがあるため、現在のイベントデータ全体をsetする。
+    await set(eventRef(), nextData);
+    data = nextData;
+    render();
     eventDialog.close();
-    if(newId!==eventId){ eventId=newId; location.href=`${location.pathname}?event=${encodeURIComponent(eventId)}`; }
   }catch(err){
     alert('イベント名の保存に失敗しました。通信状態を確認してもう一度お試しください。\n'+(err?.message||err));
   }finally{
-    saveEventBtn.disabled=false;
+    saveEventBtn.disabled = false;
   }
 };
 saveArtistsBtn.onclick=async()=>{ try{ const artists = parseArtistText(artistsText.value); await update(eventRef(), {artists, updatedAt:Date.now()}); artistsDialog.close(); }catch(err){ artistsError.textContent=err.message; } };
@@ -1102,6 +1124,10 @@ function findSingleTime(line){
 function cleanArtistName(name){
   let n = String(name||'').trim();
   n = n.replace(/^(DJ|LIVE|GUEST|REGULAR|ACT|ARTIST|出演者|出演|DJs?)[:：\s-]*/i,'').trim();
+
+  // タイムテーブル計算機くんの「大山 (30)」「大山（30分）」のような
+  // 持ち時間表記は演者名として取り込まない
+  n = n.replace(/\s*[（(]\s*[0-9０-９]{1,3}\s*(?:分|min|minutes?)?\s*[）)]\s*$/i, '').trim();
 
   // OCRが日本語の1文字ごとに空白を入れた場合を補正
   // 例：「大 山 の ぶ 夫」→「大山のぶ夫」
