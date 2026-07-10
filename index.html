@@ -120,6 +120,7 @@ LIVE 2：マイク2本
   </div>
   <!-- 現在のグループの名前リスト -->
   <div id="discountNameList" style="display:flex;flex-direction:column;gap:5px;max-height:180px;overflow-y:auto;margin-bottom:10px"></div>
+  <button id="discountDeleteGroupBtn" style="width:100%;border:1px solid var(--line);border-radius:12px;padding:9px;font-weight:700;background:var(--panel2);color:var(--danger);margin-bottom:10px;font-size:12px">このグループを削除</button>
   <!-- 一括貼り付け -->
   <details id="discountBulkDetails" style="margin-bottom:6px">
     <summary style="font-size:12px;color:var(--muted);cursor:pointer;padding:4px 0">▼ まとめて貼り付け（1行1人）</summary>
@@ -406,6 +407,9 @@ function openDiscountDialog(){
   for(const g of discountGroupsFromPrices()){
     if(!groups.has(g)) groups.set(g, []);
   }
+  // どのグループも無い場合（割引が1件も無く、入場料も「通常」のみ等）は
+  // デフォルトの「割引」グループを必ず用意する（これが無いと追加操作が反映されないバグになる）
+  if(!groups.size) groups.set('割引', []);
 
   // activeGroupは最初のグループ
   const activeGroup = groups.keys().next().value || '割引';
@@ -427,7 +431,12 @@ function renderDiscountDialog(){
     const members = groups.get(g);
     const active = g === activeGroup;
     return `<button data-discount-tab="${escapeHtml(g)}" style="border:1px solid ${active?'var(--accent)':'var(--line)'};border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;background:${active?'var(--accent)':'var(--panel2)'};color:${active?'#06101f':'var(--text)'};white-space:nowrap">${escapeHtml(g)}<span style="opacity:.7;margin-left:4px">${members.length}</span></button>`;
-  }).join('');
+  }).join('') + `<button data-discount-newgroup style="border:1px dashed var(--accent);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:800;background:transparent;color:var(--accent);white-space:nowrap">＋新規グループ</button>`;
+
+  // グループ削除ボタン（グループが1つしか無い時は消せないよう非表示）
+  const deleteGroupBtn = document.getElementById('discountDeleteGroupBtn');
+  deleteGroupBtn.style.display = groups.size > 1 ? '' : 'none';
+  deleteGroupBtn.textContent = `「${activeGroup}」を削除`;
 
   // 名前リスト描画
   const listEl = document.getElementById('discountNameList');
@@ -444,13 +453,54 @@ function renderDiscountDialog(){
   }
 }
 
-// タブ切り替え
+// 現在のアクティブグループのメンバー配列を返す。無ければ新規作成する（追加操作が消える不具合防止）
+function getActiveMembers(){
+  if(!_discountEditState) return null;
+  const { groups, activeGroup } = _discountEditState;
+  if(!groups.has(activeGroup)) groups.set(activeGroup, []);
+  return groups.get(activeGroup);
+}
+
+// タブ切り替え／新規グループ作成
 document.getElementById('discountGroupTabs').addEventListener('click', e => {
-  const btn = e.target.closest('[data-discount-tab]'); if(!btn || !_discountEditState) return;
+  if(!_discountEditState) return;
+  const newBtn = e.target.closest('[data-discount-newgroup]');
+  if(newBtn){
+    const raw = prompt('新しいグループ名を入力してください\n（例：学割、友達割 など）');
+    const name = (raw || '').trim();
+    if(!name) return;
+    const { groups } = _discountEditState;
+    const existingKey = [...groups.keys()].find(g => g.toLowerCase() === name.toLowerCase());
+    if(existingKey){
+      _discountEditState.activeGroup = existingKey;
+    } else {
+      groups.set(name, []);
+      _discountEditState.activeGroup = name;
+    }
+    renderDiscountDialog();
+    document.getElementById('discountNameInput').focus();
+    return;
+  }
+  const btn = e.target.closest('[data-discount-tab]'); if(!btn) return;
   _discountEditState.activeGroup = btn.dataset.discountTab;
   renderDiscountDialog();
   document.getElementById('discountNameInput').focus();
 });
+
+// グループ削除
+document.getElementById('discountDeleteGroupBtn').onclick = () => {
+  if(!_discountEditState) return;
+  const { groups, activeGroup } = _discountEditState;
+  if(groups.size <= 1) return; // 最後の1グループは残す
+  const memberCount = (groups.get(activeGroup) || []).length;
+  const msg = memberCount > 0
+    ? `「${activeGroup}」を削除します。登録済みの${memberCount}人分の名前も削除されますがよろしいですか？`
+    : `「${activeGroup}」を削除しますか？`;
+  if(!confirm(msg)) return;
+  groups.delete(activeGroup);
+  _discountEditState.activeGroup = groups.keys().next().value;
+  renderDiscountDialog();
+};
 
 // 名前を削除
 document.getElementById('discountNameList').addEventListener('click', e => {
@@ -466,8 +516,9 @@ function discountAddOne(){
   if(!_discountEditState) return;
   const input = document.getElementById('discountNameInput');
   const name = input.value.trim(); if(!name) return;
-  const members = _discountEditState.groups.get(_discountEditState.activeGroup);
-  if(members && !members.find(m=>m.name===name)){
+  const members = getActiveMembers();
+  const lower = name.toLowerCase();
+  if(members && !members.find(m=>m.name.trim().toLowerCase()===lower)){
     members.push({id: newUid(), name, checked: false});
   }
   input.value = '';
@@ -479,14 +530,15 @@ document.getElementById('discountNameInput').addEventListener('keydown', e => {
   if(e.key === 'Enter'){ e.preventDefault(); discountAddOne(); }
 });
 
-// 一括追加
+// 一括追加（改行・カンマ・読点区切りに対応）
 document.getElementById('discountBulkAddBtn').onclick = () => {
   if(!_discountEditState) return;
   const text = document.getElementById('discountTextarea').value;
-  const members = _discountEditState.groups.get(_discountEditState.activeGroup);
-  for(const rawLine of text.split('\n')){
+  const members = getActiveMembers();
+  for(const rawLine of text.split(/[\n,、]/)){
     const name = rawLine.trim(); if(!name) continue;
-    if(members && !members.find(m=>m.name===name)){
+    const lower = name.toLowerCase();
+    if(members && !members.find(m=>m.name.trim().toLowerCase()===lower)){
       members.push({id: newUid(), name, checked: false});
     }
   }
