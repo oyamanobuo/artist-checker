@@ -103,7 +103,7 @@ LIVE 2：マイク2本
   </div>
 </div>
 
-<dialog id="eventDialog"><h3>イベント設定</h3><div class="formGrid"><label>イベント名<input id="titleInput" /></label><label>イベントID<input id="eventInput" /></label><div class="small">イベントIDを変えると別イベントになります。例：soul-jamaica-2026</div></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveEventBtn">保存</button></div></dialog>
+<dialog id="eventDialog"><h3>イベント設定</h3><div class="formGrid"><label>イベント名<input id="titleInput" /></label><label>イベントID<input id="eventInput" /></label><div class="small">イベントIDを変えると、演者・入場料・割引・メモなどが全て空の新しいイベントになります（今のデータは消えず、元のURLからまた見られます）。例：soul-jamaica-2026</div></div><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveEventBtn">保存</button></div></dialog>
 <dialog id="feeDialog"><h3>入場料設定</h3><div class="small">料金名・金額・ドリンク枚数を入力。金額は500円刻み。例：通常 ¥1000 / 1D、ディスカウント ¥500 / 1D、ゲスト ¥0 / 0D</div><div class="feeRows" id="feeRows"></div><button class="addFeeBtn" id="addFeeRowBtn" type="button">＋ 料金を追加</button><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveFeeBtn">保存</button></div><div class="error" id="feeError"></div></dialog>
 <dialog id="artistsDialog"><h3>演者編集</h3><div class="small">1行に「時間,演者名,人数,メモ」。時間なしでもOK。例：20:30,OSAGARI,2,もう1人後入り</div><textarea id="artistsText"></textarea><div class="dialogBtns"><button class="cancel" data-close>閉じる</button><button id="saveArtistsBtn">保存</button></div><div class="error" id="artistsError"></div></dialog>
 
@@ -788,12 +788,12 @@ saveEventBtn.onclick=async()=>{
   try{
     const updatedAt = Date.now();
 
-    // イベントIDを変える時は「古いイベントに保存→新IDへ移動」ではなく、
-    // 新しいイベント側にタイトル込みでデータを作ってから移動する。
-    // これで初回保存後にタイトルが初期値へ戻る現象を防ぐ。
+    // イベントIDを変える＝別の新しいイベントとして扱うため、
+    // 演者・入場料・割引・メモなどは引き継がず全て空の状態で作成する。
+    // （既存データをそのまま持っていきたい場合は「イベントを複製」を使う）
     if(newId !== oldId){
       const copy = {
-        ...(data || defaultData),
+        ...defaultData,
         title: newTitle,
         updatedAt
       };
@@ -1144,6 +1144,9 @@ function normalizeOcrText(raw){
     .replace(/[：﹕]/g, ':')
     .replace(/[−–—〜~～]/g, '-')
     .replace(/[，、]/g, ',')
+    // コロン無し4桁時刻「1800-1845」→「18:00-18:45」（コロンが無いと時間として認識されず
+    // 演者名の一部として誤読されてしまうため、先にコロン区切りへ揃える）
+    .replace(/(?<!\d)([0-2]\d)([0-5]\d)\s*-\s*([0-2]\d)([0-5]\d)(?!\d)/g, '$1:$2-$3:$4')
     .replace(/([0-2]?\d)\s*[\.．]\s*([0-5]\d)/g, '$1:$2')
     .replace(/([0-2]?\d)\s*;\s*([0-5]\d)/g, '$1:$2')
     .replace(/([0-2]?\d)\s+([0-5]\d)\s*-/g, '$1:$2-')
