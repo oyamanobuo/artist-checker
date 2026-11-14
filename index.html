@@ -1416,5 +1416,16 @@ connect();
 setInterval(()=>data&&render(), 30000);
 setInterval(()=>{ if(data){ const artists=Array.isArray(data.artists)?data.artists:[]; setNow(artists); } }, 10000);
 </script>
+<script>
+/* ===== SERVICE WORKER UPDATE ===== */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(registration => registration.update())
+      .catch(error => console.warn('アプリの更新確認に失敗しました:', error));
+  });
+}
+</script>
+
 </body>
 </html>
