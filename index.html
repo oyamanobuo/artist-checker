@@ -1262,15 +1262,12 @@ function makeOcrCanvas(img, scale, mode){
     let gray=0.299*r+0.587*g+0.114*b;
 
     if(mode==='timetable'){
-      // 黒背景＋白文字/青時間のタイムテーブル向け。
-      // 青い時間文字を暗く潰さず、白背景に濃い文字として変換する。
-      const isBlueTime = b > r + 35 && b > g + 20 && b > 90;
-      const isLightText = gray > 150;
-      const isDarkBg = gray < 95;
-      let v = 255;
-      if(isBlueTime || isLightText) v = 0;
-      else if(isDarkBg) v = 255;
-      else v = gray > 135 ? 0 : 255;
+      // 黒背景＋白い演者名＋グレーの時刻のタイムテーブル向け。
+      // 時刻のグレー文字（この画像では明るさ約100前後）もOCR対象にする。
+      // 背景はほぼ黒なので、一定以上明るい画素をすべて黒文字に反転する。
+      // 青い時刻も同じ条件で拾い、白背景に黒文字として統一する。
+      const isForeground = gray > 35 || (b > r + 25 && b > g + 15 && b > 45);
+      const v = isForeground ? 0 : 255;
       d[i]=d[i+1]=d[i+2]=v;
     }else if(mode==='threshold'){
       const v=gray>165?255:0; d[i]=d[i+1]=d[i+2]=v;
