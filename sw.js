@@ -1,4 +1,4 @@
-const CACHE_NAME = 'artist-checker-v1';
+const CACHE_NAME = 'artist-checker-v2';
 const APP_URL = new URL('./', self.registration.scope).href;
 const INDEX_URL = new URL('index.html', APP_URL).href;
 
@@ -30,7 +30,7 @@ self.addEventListener('fetch', event => {
 
   event.respondWith((async () => {
     try {
-      const response = await fetch(request);
+      const response = await fetch(new Request(request, { cache: 'no-store' }));
       if (response && response.ok) {
         const cache = await caches.open(CACHE_NAME);
         await cache.put(request, response.clone());
