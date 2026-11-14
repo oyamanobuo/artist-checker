@@ -758,7 +758,7 @@ function updateUnreadBadge(unread){
   else { badge.classList.add('hide'); readBtn.classList.add('hide'); }
 }
 shareBtn.onclick = async()=>{ try{ await navigator.clipboard.writeText(location.href); shareBtn.textContent='コピー済み'; setTimeout(()=>shareBtn.textContent='共有URL',1200);}catch(e){ prompt('共有URL', location.href); } };
-function openEventDialog(){ titleInput.value=data?.title||''; eventInput.value=eventId; eventDialog.showModal(); }
+function openEventDialog(){ const currentTitle=String(data?.title||'').trim(); titleInput.value=(currentTitle && currentTitle!=='エントランス屋さん太郎')?currentTitle:''; eventInput.value=eventId; eventDialog.showModal(); }
 function openFeeDialog(){ feeError.textContent=''; renderFeeRows(); feeDialog.showModal(); }
 function openFlyerDialog(){ ocrError.textContent=''; ocrStatus.textContent=''; ocrText.value=''; flyerInput.value=''; flyerDialog.showModal(); }
 saveFeeBtn.onclick=async()=>{ try{ const prices=readFeeRows(); await update(eventRef(), {prices, updatedAt:Date.now()}); feeDialog.close(); }catch(err){ feeError.textContent=err.message; } };
